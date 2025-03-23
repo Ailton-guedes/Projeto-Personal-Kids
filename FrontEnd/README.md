@@ -21,7 +21,11 @@ Para clonar o nosso repositório.
 
 4 - Com o repositório clonado, ele deve ter criado uma outra pasta com o nome do repositório e as informações dentro. Agora você deve, NO TERMINAL, dar o comando:
 ```
-cd nome-da-pasta-que-foi-criada
+cd Projeto-Personal-Kids/
+```
+e depois:
+```
+cd FrontEnd/
 ```
 Para que o endereço do terminal seja o da pasta que vamos mexer.
 
