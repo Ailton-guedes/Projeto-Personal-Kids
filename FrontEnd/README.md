@@ -1,17 +1,17 @@
-# Guia para inicializar o FrontEnd:
+# Guia para inicializar o FrontEnd
 
-0 - Verificar se possui o git installado para que possa clonar o repositório
+0 - Verificar se possui o git installado para que possa clonar o repositório:
 ```
-Irei procurar um link do Youtube insinando a instalar
+https://youtu.be/iYkLrXobBbA?si=B8WgA-Edz3m5a3VG
 ```
 
-1 - Acessar o seu VisualCode e selecionar alguma pasta para que possa baixar o repositório do github
+1 - Acessar o seu VisualCode e selecionar alguma pasta para que possa baixar o repositório do GitHub.
 
 2 - Com a pasta selecionada, abra o terminal e digite:
 ```
 git -v
 ```
-Para verificar de o git está funcionando.
+Para verificar se o Git está funcionando.
 
 3 - Digite:
 ```
@@ -33,7 +33,7 @@ Para que o endereço do terminal seja o da pasta que vamos mexer.
 ```
 npm install
 ```
-Para que possa intalar a pasta node_modules com todas as dependencias que foram definidas
+Para que possa intalar a pasta node_modules com todas as dependencias que foram definidas.
 
 6 - Por fim, de o ultimo comando:
 ```
