@@ -44,4 +44,5 @@ Para rodar o nosso servidor local.
 7 - Agora copie o link informado no terminal e jogue no navegador.
 
 
-
+## importante:
+Apesar de terem varias pastas no projeto, nós iremos mexer apenas nos scripts que estiverem na pasta "src"
