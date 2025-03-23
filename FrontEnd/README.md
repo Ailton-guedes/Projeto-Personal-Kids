@@ -1,8 +1,9 @@
 # Guia para inicializar o FrontEnd:
 
 0 - Verificar se possui o git installado para que possa clonar o repositório
--- Irei procurar um link do Youtube insinando a instalar
-
+```
+Irei procurar um link do Youtube insinando a instalar
+```
 
 1 - Acessar o seu VisualCode e selecionar alguma pasta para que possa baixar o repositório do github
 
