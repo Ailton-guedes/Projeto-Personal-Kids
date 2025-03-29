@@ -16,6 +16,7 @@ const Root = () => {
                 {/* Para incluir novas rotas, 
                 faça assim como a rota login logo abaixo: */}
                 <Route path="/Login" element={<Login />} />
+                
             </Routes>
         </Router>
     );
