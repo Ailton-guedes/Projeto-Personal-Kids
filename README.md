@@ -23,6 +23,10 @@ Para clonar o nosso repositório.
 ```
 cd Projeto-Personal-Kids/
 ```
+e depois:
+```
+cd frondend/
+```
 Para que o endereço do terminal seja o da pasta que vamos mexer.
 
 5 - Depois de acessar a pasta onde iremos trabalhar faça o seguinte comando:
