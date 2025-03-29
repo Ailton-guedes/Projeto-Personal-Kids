@@ -16,7 +16,7 @@ Banco de Dados: [Banco de dados utilizado] (MySql)
 
 ---
 
-# Guia para inicializar o FrontEnd
+# Guia para inicializar o projeto
 
 0 - Verificar se possui o git installado para que possa clonar o repositório:
 ```
