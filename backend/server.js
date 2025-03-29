@@ -45,7 +45,34 @@ app.post('/', (req, res) => {
 });
 
 
+//Praticamente igual ao post,
+//  mas ao invés de postar,
+//  nós iremos "pegar" (tradução de "get")
+//  as informações guardadas no banco. 
+//      '/' assim como antes, aqui estamos definindo o 
+//      caminho url que será utilizado para executar 
+//      essa solicitação (sim, nós podemos utilizar 
+//      a mesma url, pois as solicitação diferentes). 
+//          Por fim, informamos que através dessa url, 
+//          iremos realizar requisições e iremos solicitar 
+//          respostas também
 app.get('/', (req, res) => {
+    //Nesta situação, como queremos apresentar
+    //  todos os dados que constam guardados no banco,
+    //  não precisamos de um "req", 
+    //  a final estamos só pedindo para ele jogar
+    //  tudo o que ele tem guardado para nós. 
+    //      Caso quisessemos que ele puxasse apenas uma 
+    //      parte das informações guardadas, 
+    //      teriamos que definir algumas informações 
+    //      precisando então de uma requisição.
+
+    //Aqui estamos solicitando uma "res", 
+    // uma resposta, e queremos receber 
+    // essa resposta em json. E dentro da função 
+    // indicamos o constante "users", 
+    // pois é ela quem está armazenando os 
+    // dados que queremos como resposta 
     res.json(users);
 });
 
