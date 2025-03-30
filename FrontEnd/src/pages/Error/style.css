@@ -1,0 +1,27 @@
+.container {
+    background-color: #FF2727;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    font-size: large;
+}
+
+
+.errorButton {
+    background-color: #007AFF;
+    border-radius: 8px;
+    border: none;
+
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+
+    font-size: 30px;
+}
