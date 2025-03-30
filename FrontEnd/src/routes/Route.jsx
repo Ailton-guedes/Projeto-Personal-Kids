@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 
 {/* Para incluir novas rotas precisa importar 
     seu nome e o caminho até ela */}
-import Login from "../pages/Login";
+import Login from "../pages/adminitrator/login";
+import Relatorios from "../pages/adminitrator/relatorios";
+
 
 {/* Criada a constante Root para informarmos nossas rotas */}
 const Root = () => {
@@ -16,6 +18,8 @@ const Root = () => {
                 {/* Para incluir novas rotas, 
                 faça assim como a rota login logo abaixo: */}
                 <Route path="/Login" element={<Login />} />
+
+                <Route path="/relatorios" element={<Relatorios />} />
                 
             </Routes>
         </Router>
