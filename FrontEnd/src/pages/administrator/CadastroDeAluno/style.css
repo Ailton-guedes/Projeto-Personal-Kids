@@ -1,0 +1,68 @@
+
+
+/* estilo para titilo*/
+h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 1px;
+}
+
+form {
+    background-color: #f3b9e3;
+    width: 100%;
+    max-width: 1000px;
+    margin: 1px auto 1px auto; /* margin-top: 80px; para afastar do topo */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgb(12, 186, 230);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+label {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="tel"],
+select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width:100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+button[type="submit"]{
+    background-color: rgb(9, 1, 166);
+    color: rgb(221, 214, 238);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 16px;
+    width: 50%;
+ }
+
+ /* Estilo para o botão quando estiver com o cursor em cima */
+button[type="submit"]:hover {
+    background-color: #b70af1;
+}
+
+/* Estilo para os campos obrigatórios */
+input:required {
+    border: 1px solid #0f0101;
+}
+
+/* Estilo para a caixa de seleção (checkbox) */
+input[type="checkbox"] {
+    margin-right: 8px;
+}
+
