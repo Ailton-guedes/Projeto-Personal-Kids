@@ -1,6 +1,8 @@
 import './style.css';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ children }) => {
+    const navigate = useNavigate();
 
     const buttonsArray = [
         { name: 'Dashboard', link: '/dashboard' },
@@ -10,14 +12,18 @@ const Navbar = ({ children }) => {
         { name: 'Relatorios', link: '/relatorios' },
     ];
 
-
     return (
-
         <>
             <div className="navbar">
                 <div className="buttonsArray">
-                    {buttonsArray.map((buttons, index) => (
-                        <button key={index} className="pageButton">{buttons.name}</button>
+                    {buttonsArray.map((button, index) => (
+                        <button
+                            key={index}
+                            className="pageButton"
+                            onClick={() => navigate(button.link)}
+                        >
+                            {button.name}
+                        </button>
                     ))}
                 </div>
 
@@ -29,15 +35,12 @@ const Navbar = ({ children }) => {
                     <div className="self">img</div>
                 </div>
             </div>
+
             <main>
                 {children}
             </main>
         </>
-
-
-
     );
 };
-
 
 export default Navbar;

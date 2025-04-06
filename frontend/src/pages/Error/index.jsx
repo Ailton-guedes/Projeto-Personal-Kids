@@ -1,12 +1,14 @@
 import './style.css';
-
+import { useNavigate } from 'react-router-dom';
 
 const Error = () => {
+    const navigate = useNavigate();
+
     return (
-        <div className="container">
+        <div className="errorPage">
             <h1>Erro 404</h1>
             <p>Página não encontrada</p>
-            <button className="errorButton">Voltar</button>
+            <button className="errorButton" onClick={() => navigate(-1)}>Voltar</button>
         </div>
     );
 }

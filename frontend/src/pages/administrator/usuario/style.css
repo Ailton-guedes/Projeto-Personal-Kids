@@ -1,0 +1,205 @@
+.container {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+.registration {
+    width: 100%;
+    max-width: 900px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.registration-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.registration-buttons button {
+    padding: 10px 24px;
+    font-size: 16px;
+    background-color: #48A2FE;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.registration-buttons button:hover {
+    background-color: #88c2fc;
+}
+
+.user-table {
+    width: 100%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.user-table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    border-bottom: 1px solid #ccc;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.user-table-header h2 {
+    margin: 0;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.filters {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.filters select,
+.filters input {
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.filters select:focus,
+.filters input:focus {
+    border-color: #48A2FE;
+    box-shadow: 0 0 0 2px rgba(72, 162, 254, 0.2);
+}
+
+.user-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+    border: 1px solid #e0e0e0;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 15px;
+}
+
+.user-table th {
+    background-color: #f0f0f0;
+    font-weight: 600;
+    color: #333;
+}
+
+.user-table td button {
+    margin-right: 5px;
+    padding: 6px 12px;
+    border: none;
+    background-color: #48A2FE;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.user-table td button:hover {
+    background-color: #3590ea;
+}
+
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+.clickable-row:hover {
+    background-color: #e8f4ff;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    gap: 20px;
+    border-top: 1px solid #eee;
+}
+
+.pagination button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #48A2FE;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+    background-color: #3590ea;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .registration {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .registration-buttons {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .user-table th,
+    .user-table td {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .user-table select {
+        width: 100%;
+    }
+
+    .user-table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .filters {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filters select,
+    .filters input {
+        width: 100%;
+    }
+}
