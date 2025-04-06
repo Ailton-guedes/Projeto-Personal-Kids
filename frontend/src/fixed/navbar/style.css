@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    background-color: #F8CDE2;
+    
+    width: 100%;
+    height: 10vh;  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+}
+
+.buttonsArray {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.pageButton {
+    background-color: #FBA981;
+    border-radius: 8px;
+    border: none;
+
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.pageButton:hover {
+    background-color: #accded;
+    transition: 0.3s;
+}
+
+.perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.self {
+    background-color: #007AFF;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
