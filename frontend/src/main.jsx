@@ -8,8 +8,6 @@ import { StrictMode } from 'react';
   do nosso index.html */}
 import { createRoot } from 'react-dom/client';
 
-import Navbar from './fix/navbar';
-
 {/* Importanto todas as informações de dentro
    da constante "Root" dentro do script Route.jsx */}
 
@@ -25,7 +23,6 @@ createRoot(document.getElementById('root')
   /* "StrictMode" para que o sistema sinalize caso
    fizermos algo errado */
   <StrictMode>
-    <Navbar />
     <Root />
   </StrictMode>
 );

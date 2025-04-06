@@ -20,6 +20,7 @@ const Root = () => {
                 {/* Para incluir novas rotas, 
                 faça assim como a rota login logo abaixo: */}
                 <Route path="/Login" element={<Login />} />
+                
                <Route path="/CadastroDeAluno" element={<Cadastrodealuno />} />
 
                 <Route path="*" element={<Error />} />
