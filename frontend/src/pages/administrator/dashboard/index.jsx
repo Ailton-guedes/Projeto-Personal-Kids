@@ -1,6 +1,3 @@
-{/* Import é igual ao link, que usamos no html */}
-import './style.css';
-
 {/* Criado uma constante apenas para dar um
      nome para que possemos importar as informações */}
 const Dashboard = () => {

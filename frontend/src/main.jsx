@@ -1,7 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Root from "./routes/route.jsx";
+
+import Root from './routes/Root';
 import './index.css';
 
 createRoot(document.getElementById('root')
