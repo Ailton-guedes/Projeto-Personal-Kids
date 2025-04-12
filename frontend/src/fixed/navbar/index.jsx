@@ -1,8 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = ({ children }) => {
     const navigate = useNavigate();
+    const location = useLocation(); 
 
     const buttonsArray = [
         { name: 'Dashboard', link: '/dashboard' },
@@ -14,7 +15,6 @@ const Navbar = ({ children }) => {
 
     return (
         <>
-            {/* Navbar fixada no topo */}
             <nav
                 className="d-flex justify-content-between align-items-center px-4 flex-wrap position-fixed w-100"
                 style={{ 
@@ -22,32 +22,39 @@ const Navbar = ({ children }) => {
                     height: 'auto', 
                     paddingTop: '10px', 
                     paddingBottom: '10px', 
-                    top: 0, // Fixa a navbar no topo
-                    zIndex: 1000 // Garante que a navbar fique acima de outros elementos
+                    top: 0,
+                    zIndex: 1000
                 }}
             >
-                {/* Botões alinhados à esquerda */}
                 <div className="d-flex align-items-center gap-2 w-50">
-                    {buttonsArray.map((button, index) => (
-                        <button
-                            key={index}
-                            className="btn"
-                            style={{
-                                backgroundColor: '#FBA981',
-                                borderRadius: '8px',
-                                width: 'auto',  // Remover largura fixa
-                                height: '40px', // Manter altura consistente
-                            }}
-                            onClick={() => navigate(button.link)}
-                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#accded'}
-                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#FBA981'}
-                        >
-                            {button.name}
-                        </button>
-                    ))}
+                    {buttonsArray.map((button, index) => {
+                        const isActive = location.pathname === button.link;
+
+                        return (
+                            <button
+                                key={index}
+                                className="btn"
+                                style={{
+                                    backgroundColor: isActive ? '#4B9CD3' : '#FBA981',
+                                    borderRadius: '8px',
+                                    width: 'auto',
+                                    height: '40px',
+                                    color: isActive ? '#ffffff' : '#000000'
+                                }}
+                                onClick={() => navigate(button.link)}
+                                onMouseOver={(e) =>
+                                    e.currentTarget.style.backgroundColor = isActive ? '#4B9CD3' : '#accded'
+                                }
+                                onMouseOut={(e) =>
+                                    e.currentTarget.style.backgroundColor = isActive ? '#4B9CD3' : '#FBA981'
+                                }
+                            >
+                                {button.name}
+                            </button>
+                        );
+                    })}
                 </div>
 
-                {/* Perfil visível apenas em telas médias e maiores */}
                 <div className="d-none d-md-flex align-items-center gap-3 w-50 justify-content-end">
                     <div className="d-flex align-items-center gap-2">
                         <span className="fw-medium">Administrador(a),</span>
@@ -69,8 +76,9 @@ const Navbar = ({ children }) => {
                 </div>
             </nav>
 
-            {/* Conteúdo abaixo da navbar */}
-            <main style={{ marginTop: '10vh' }}>{children}</main> {/* Ajuste o espaçamento superior para não sobrepor o conteúdo */}
+            <main style={{ marginTop: '10vh' }}>
+                {children}
+            </main>
         </>
     );
 };
