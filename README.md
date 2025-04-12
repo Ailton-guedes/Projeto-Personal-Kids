@@ -1,4 +1,4 @@
-# Guia para inicializar o projeto
+# Guia para inicializar o projeto frontend
 
 0 - Verificar se possui o git installado para que possa clonar o repositório:
 ```
