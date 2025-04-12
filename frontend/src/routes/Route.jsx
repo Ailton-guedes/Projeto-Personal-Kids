@@ -2,7 +2,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Navbar from "../fixed/Navbar";
 
 import Login from "../pages/administrator/Login";
-import Cadastrodealuno from "../pages/administrator/cadastroaluno";
+
+
+
+import Cadastroaluno from "../pages/administrator/cadastroaluno";
+
 import User from "../pages/administrator/usuario";
 
 import Error from "../pages/Error";
@@ -15,7 +19,7 @@ const Root = () => {
             
                 <Route path="/Login" element={<Login />} />
                 <Route path="/usuarios" element={<Navbar><User /></Navbar>} /> 
-                <Route path="/cadastro-de-aluno" element={<Navbar><Cadastrodealuno /></Navbar>} />
+                <Route path="/cadastro-de-aluno" element={<Navbar><Cadastroaluno /></Navbar>} />
 
                 <Route path="*" element={<Error />} />
             </Routes>
