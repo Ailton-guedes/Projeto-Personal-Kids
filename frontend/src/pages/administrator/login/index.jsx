@@ -1,18 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { login } from '../../../service/api';
+
 
 const Login = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const [error, setError] = useState('');
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
     const email = event.target.email.value;
     const password = event.target.password.value;
-
+  
     if (email && password) {
-      alert('Login efetuado com sucesso! Em uma aplicação real, você seria redirecionado para a página principal.');
+      try {
+        const response = await login(email, password);
+
+        console.log(response);
+  
+        if (response.data.success) {
+          alert('Login efetuado com sucesso!');
+        } else {
+          setError(response.data.message || 'Erro no login. Tente novamente!');
+        }
+      } catch (error) {
+        console.error('Erro na requisição:', error);
+        setError('Erro no login. Tente novamente!');
+      }
     } else {
       alert('Por favor, preencha todos os campos!');
     }
   };
+  
 
   return (
     <div
@@ -101,6 +119,9 @@ const Login = () => {
             >
               Esqueci a senha
             </a>
+            {error && (
+              <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>
+            )}
           </form>
         </div>
 
@@ -119,7 +140,6 @@ const Login = () => {
             }}
           />
         </div>
-
       </div>
     </div>
   );
