@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from usuarios.views import criar_usuario
 from usuarios.views import login_usuario
+from usuarios.views import listar_usuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('usuarios/criar', criar_usuario),
+    path('usuarios/criar/', criar_usuario),
     path('usuarios/login/', login_usuario),
+    path('usuarios/listar/', listar_usuario),
 ]
 
 

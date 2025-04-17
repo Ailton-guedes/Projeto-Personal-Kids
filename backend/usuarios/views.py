@@ -13,13 +13,20 @@ def criar_usuario(request):
         usuario = Usuario(
             name=data['name'], 
             email=data['email'], 
-            password=make_password(data['password'])  # <- Aqui aplica a criptografia
+            type=data['type'],
+            password=make_password(data['password'])
         )
         usuario.save()
         return JsonResponse({'id': str(usuario.id), 'name': usuario.name})
     return JsonResponse({'error': 'Método não permitido'}, status=405)
 
-
+@csrf_exempt
+def listar_usuario(request):
+    if request.method == 'GET':
+        usuarios = Usuario.objects.all()
+        usuarios_list = [{'id': str(usuario.id), 'name': usuario.name, 'email': usuario.email} for usuario in usuarios]
+        return JsonResponse(usuarios_list, safe=False)
+    return JsonResponse({'error': 'Método não permitido'}, status=405)
 
 @csrf_exempt
 def login_usuario(request):
