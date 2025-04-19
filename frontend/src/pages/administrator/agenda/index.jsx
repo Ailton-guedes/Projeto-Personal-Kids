@@ -1,37 +1,38 @@
 import React from 'react';
 
 const Agenda = () => {
-  const data = {
-    "Aulas da semana anterior": [
-      { date: "03/03", total: 3, status: [2, 1, 0] },
-      { date: "04/03", total: 2, status: [2, 0, 0] },
-      { date: "05/03", total: 2, status: [1, 0, 0] },
-      { date: "06/03", total: 1, status: [0, 0, 0] },
-      { date: "07/03", total: 3, status: [1, 1, 0] },
-      { date: "08/03", total: 2, status: [2, 0, 0] },
-    ],
-    "Aulas da semana": [
-      { date: "10/03", total: 3, status: [3, 0, 0] },
-      { date: "11/03", total: 2, status: [2, 1, 0] },
-      { date: "12/03", total: 1, status: [1, 0, 0] },
-      { date: "13/03", total: 3, status: [1, 2, 0] },
-      { date: "14/03", total: 0, status: [0, 0, 0] },
-      { date: "15/03", total: 2, status: [2, 0, 0] },
-    ],
-    "Aulas da próxima semana": [
-      { date: "17/03", total: 3, status: [0, 0, 0] },
-      { date: "18/03", total: 2, status: [0, 0, 0] },
-      { date: "19/03", total: 1, status: [0, 0, 0] },
-      { date: "20/03", total: 3, status: [0, 0, 0] },
-      { date: "21/03", total: 0, status: [0, 0, 0] },
-      { date: "22/03", total: 2, status: [0, 0, 0] },
-    ],
+  const getWeekDates = (offset = 0) => {
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const start = new Date(today);
+    start.setDate(today.getDate() - dayOfWeek + 1 + offset * 7);
+
+    return Array.from({ length: 6 }, (_, i) => {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      return {
+        date: d.toLocaleDateString('pt-BR'),
+        total: Math.floor(Math.random() * 4),
+        status: [0, 0, 0],
+      };
+    });
   };
 
-  const getBgColor = (section) => {
-    if (section.includes("anterior")) return "#b9e2ff";
-    if (section.includes("próxima")) return "#eee";
-    return "#c8f0cd";
+  const data = {
+    "Aulas da semana anterior": getWeekDates(-1),
+    "Aulas da semana": getWeekDates(0),
+    "Aulas da próxima semana": getWeekDates(1),
+  };
+
+  const getBgColor = (dateStr) => {
+    const today = new Date();
+    const [day, month, year] = dateStr.split('/').map(Number);
+    const date = new Date(year, month - 1, day);
+    today.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
+    if (date.getTime() === today.getTime()) return "#c8f0cd";
+    if (date < today) return "#b9e2ff";
+    return "#eee";
   };
 
   return (
@@ -54,7 +55,13 @@ const Agenda = () => {
           <div className="row g-2">
             {days.map((day, index) => (
               <div key={index} className="col-xs-6 col-sm-4 col-md-2">
-                <div className="card" style={{ backgroundColor: getBgColor(sectionTitle), borderRadius: "10px" }}>
+                <div
+                  className="card"
+                  style={{
+                    backgroundColor: getBgColor(day.date),
+                    borderRadius: "10px"
+                  }}
+                >
                   <div className="card-body text-center p-2">
                     <div className="fw-bold">{day.date}</div>
                     <div className="my-1 fw-bold" style={{ fontSize: "24px" }}>
