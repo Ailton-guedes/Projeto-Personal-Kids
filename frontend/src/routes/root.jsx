@@ -7,8 +7,9 @@ import Login from "../pages/administrator/Login";
 import Dashboard from "../pages/administrator/dashboard";
 import Agenda from "../pages/administrator/agenda";
 import User from "../pages/administrator/usuarios";
-    import Cadastroaluno from "../pages/administrator/cadastroaluno";
-    import Cadastroprofessor from "../pages/administrator/cadastroprofessor";
+import Cadastroaluno from "../pages/administrator/usuarios/cadastro_aluno";
+import Cadastroprofessor from "../pages/administrator/usuarios/cadastro_professor";
+
 import Financeiro from "../pages/administrator/financeiro";
 import Relatorios from "../pages/administrator/relatorio";
 

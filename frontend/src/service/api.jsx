@@ -13,3 +13,7 @@ export const login = (email, password) => {
 export const criarUsuario = (name, email, password) => {
   return api.post('/usuarios/criar/', { name, email, password });
 };
+
+export const listarUsuarios = () => {
+  return api.get('/usuarios/listar/');
+}

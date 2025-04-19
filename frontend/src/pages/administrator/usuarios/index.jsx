@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { listarUsuarios } from '../../../service/api';
 
 const User = () => {
   const navigate = useNavigate();
 
-  const allUsers = [
-    { id: 1, name: 'João Silva', type: 'Aluno' },
-    { id: 2, name: 'Maria Souza', type: 'Professor' },
-    { id: 3, name: 'Pedro Oliveira', type: 'Aluno' },
-    { id: 4, name: 'Ana Martins', type: 'Professor' },
-    { id: 5, name: 'Carlos Lima', type: 'Aluno' },
-    { id: 6, name: 'Fernanda Dias', type: 'Professor' },
-    { id: 7, name: 'Bruno Alves', type: 'Aluno' },
-    { id: 8, name: 'Larissa Costa', type: 'Aluno' },
-    { id: 9, name: 'Marcos Vinicius', type: 'Professor' },
-  ];
-
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await listarUsuarios();
+        setUsers(response.data);
+      } catch (error) {
+        setError('Erro ao carregar usuários');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
+  
+  
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
 
   const indexOfLast = currentPage * rowsPerPage;
   const indexOfFirst = indexOfLast - rowsPerPage;
-  const currentUsers = allUsers.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.ceil(allUsers.length / rowsPerPage);
+  const currentUsers = users.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(users.length / rowsPerPage);
 
   const goToProfile = (id) => {
     navigate(`/perfil/${id}`);
@@ -36,7 +44,9 @@ const User = () => {
           <button className="btn btn-primary" onClick={() => navigate('/usuarios/cadastro-de-aluno')}>
             Aluno
           </button>
-          <button className="btn btn-primary" onClick={() => navigate('/usuarios/cadastro-de-professor')}>Professor</button>
+          <button className="btn btn-primary" onClick={() => navigate('/usuarios/cadastro-de-professor')}>
+            Professor
+          </button>
         </div>
       </div>
 
@@ -62,12 +72,32 @@ const User = () => {
               </tr>
             </thead>
             <tbody>
-              {currentUsers.map((user) => (
-                <tr key={user.id} onClick={() => goToProfile(user.id)} style={{ cursor: 'pointer' }}>
-                  <td>{user.name}</td>
-                  <td>{user.type}</td>
+              {loading && (
+                <tr>
+                  <td colSpan="2" className="text-center">Carregando...</td>
                 </tr>
-              ))}
+              )}
+
+              {error && (
+                <tr>
+                  <td colSpan="2" className="text-center text-danger">{error}</td>
+                </tr>
+              )}
+
+              {!loading && !error && currentUsers.length === 0 && (
+                <tr>
+                  <td colSpan="2" className="text-center">Nenhum usuário encontrado</td>
+                </tr>
+              )}
+
+              {!loading && !error && currentUsers.length > 0 &&
+                currentUsers.map((user) => (
+                  <tr key={user.id} onClick={() => goToProfile(user.id)} style={{ cursor: 'pointer' }}>
+                    <td>{user.name}</td>
+                    <td>{user.type}</td>
+                  </tr>
+                ))
+              }
             </tbody>
           </table>
         </div>
