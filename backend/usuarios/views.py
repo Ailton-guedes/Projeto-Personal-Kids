@@ -24,7 +24,7 @@ def criar_usuario(request):
 def listar_usuario(request):
     if request.method == 'GET':
         usuarios = Usuario.objects.all()
-        usuarios_list = [{'id': str(usuario.id), 'name': usuario.name, 'email': usuario.email} for usuario in usuarios]
+        usuarios_list = [{'id': str(usuario.id), 'name': usuario.name, 'email': usuario.email, 'type': usuario.type} for usuario in usuarios]
         return JsonResponse(usuarios_list, safe=False)
     return JsonResponse({'error': 'Método não permitido'}, status=405)
 
