@@ -1,36 +1,42 @@
-import React, { useState } from 'react';
-import { login } from '../../../service/api';
-
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useUser } from '../../../service/UserContext';
 
 const Login = () => {
-  const [error, setError] = useState('');
+  const { login } = useUser();
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-  
-    if (email && password) {
-      try {
-        const response = await login(email, password);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
-        console.log(response);
-  
-        if (response.data.success) {
-          alert('Login efetuado com sucesso!');
-        } else {
-          setError(response.data.message || 'Erro no login. Tente novamente!');
-        }
-      } catch (error) {
-        console.error('Erro na requisição:', error);
-        setError('Erro no login. Tente novamente!');
-      }
-    } else {
-      alert('Por favor, preencha todos os campos!');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Fazendo login e criando o cookie de sessão
+      await axios.post(
+        'http://localhost:8000/usuarios/login/',
+        { email, password },
+        { withCredentials: true }
+      );
+
+      // Pegando os dados do usuário logado
+      const response = await axios.get('http://localhost:8000/usuarios/me', {
+        withCredentials: true,
+      });
+
+      // Salva os dados no contexto
+      login(response.data);
+
+      // Redireciona para o dashboard
+      navigate('/dashboard');
+    } catch (error) {
+      console.error(error);
+      setErrorMsg('Email ou senha inválidos');
     }
   };
-  
 
   return (
     <div
@@ -76,6 +82,8 @@ const Login = () => {
                 type="email"
                 className="form-control"
                 id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 style={{
                   borderRadius: '8px',
@@ -92,6 +100,8 @@ const Login = () => {
                 type="password"
                 className="form-control"
                 id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 style={{
                   borderRadius: '8px',
@@ -112,6 +122,9 @@ const Login = () => {
             >
               Acessar
             </button>
+            {errorMsg && (
+              <div style={{ color: 'red', marginTop: '10px' }}>{errorMsg}</div>
+            )}
             <a
               href="#"
               className="d-block text-end mt-3"
@@ -119,9 +132,6 @@ const Login = () => {
             >
               Esqueci a senha
             </a>
-            {error && (
-              <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>
-            )}
           </form>
         </div>
 
