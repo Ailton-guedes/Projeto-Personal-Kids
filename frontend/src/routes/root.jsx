@@ -30,8 +30,8 @@ const Root = () => {
                 <Route path="/usuarios/cadastro-de-aluno" element={<Navbar><Cadastroaluno /></Navbar>} />
                 <Route path="/usuarios/cadastro-de-professor" element={<Navbar><Cadastroprofessor /></Navbar>} />
 
-                <Route path="/relatorios" element={<Navbar><Financeiro /></Navbar>} />
                 <Route path="/financeiro" element={<Navbar><Relatorios /></Navbar>} />
+                <Route path="/relatorios" element={<Navbar><Financeiro /></Navbar>} />
 
                 <Route path="*" element={<Error />} />
             </Routes>
