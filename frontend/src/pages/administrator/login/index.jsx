@@ -15,22 +15,18 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // Fazendo login e criando o cookie de sessão
       await axios.post(
         'http://localhost:8000/usuarios/login/',
         { email, password },
         { withCredentials: true }
       );
 
-      // Pegando os dados do usuário logado
       const response = await axios.get('http://localhost:8000/usuarios/me', {
         withCredentials: true,
       });
 
-      // Salva os dados no contexto
       login(response.data);
 
-      // Redireciona para o dashboard
       navigate('/dashboard');
     } catch (error) {
       console.error(error);
