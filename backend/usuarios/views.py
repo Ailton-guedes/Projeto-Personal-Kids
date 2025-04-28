@@ -24,7 +24,7 @@ def criar_usuario(request):
 def listar_usuario(request):
     if request.method == 'GET':
         usuarios = Usuario.objects.all()
-        usuarios_list = [{'id': str(usuario.id), 'name': usuario.name, 'email': usuario.email, 'type': usuario.type} for usuario in usuarios]
+        usuarios_list = [{'id': str(usuario.id), 'name': usuario.name, 'email': usuario.email, 'type': usuario.type, 'status': usuario.status} for usuario in usuarios]
         return JsonResponse(usuarios_list, safe=False)
     return JsonResponse({'error': 'Método não permitido'}, status=405)
 
@@ -37,6 +37,9 @@ def login_usuario(request):
 
         try:
             usuario = Usuario.objects.get(email=email)
+
+            if usuario.status == 'destivado':
+                return JsonResponse({'success': False, 'message': 'Conta desativada. Entre em contato com o administrador.'}, status=403)
 
             if check_password(password, usuario.password):
                 request.session['usuario_id'] = str(usuario.id)

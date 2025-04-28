@@ -9,6 +9,8 @@ const User = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
+  const [searchTerm, setSearchTerm] = useState('');
+  
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -23,14 +25,21 @@ const User = () => {
     fetchUsers();
   }, []);
   
-  
+  const filteredUsers = users.filter((user) => {
+    return (
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.status.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
 
   const indexOfLast = currentPage * rowsPerPage;
   const indexOfFirst = indexOfLast - rowsPerPage;
-  const currentUsers = users.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.ceil(users.length / rowsPerPage);
+  const currentUsers = filteredUsers.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
 
   const goToProfile = (id) => {
     navigate(`/perfil/${id}`);
@@ -54,7 +63,13 @@ const User = () => {
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-3">
           <h2 className="fs-5 fw-bold m-0">Usuários Cadastrados</h2>
           <div className="d-flex flex-column flex-sm-row gap-2">
-            <input type="text" className="form-control" placeholder="Pesquisar usuário..." />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Pesquisar usuário..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} 
+            />
             <select className="form-select">
               <option value="">Todos</option>
               <option value="aluno">Aluno</option>
@@ -69,24 +84,25 @@ const User = () => {
               <tr>
                 <th>Nome</th>
                 <th>Tipo</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
               {loading && (
                 <tr>
-                  <td colSpan="2" className="text-center">Carregando...</td>
+                  <td colSpan="3" className="text-center">Carregando...</td>
                 </tr>
               )}
 
               {error && (
                 <tr>
-                  <td colSpan="2" className="text-center text-danger">{error}</td>
+                  <td colSpan="3" className="text-center text-danger">{error}</td>
                 </tr>
               )}
 
               {!loading && !error && currentUsers.length === 0 && (
                 <tr>
-                  <td colSpan="2" className="text-center">Nenhum usuário encontrado</td>
+                  <td colSpan="3" className="text-center">Nenhum usuário encontrado</td>
                 </tr>
               )}
 
@@ -95,6 +111,7 @@ const User = () => {
                   <tr key={user.id} onClick={() => goToProfile(user.id)} style={{ cursor: 'pointer' }}>
                     <td>{user.name}</td>
                     <td>{user.type}</td>
+                    <td>{user.status}</td>
                   </tr>
                 ))
               }
