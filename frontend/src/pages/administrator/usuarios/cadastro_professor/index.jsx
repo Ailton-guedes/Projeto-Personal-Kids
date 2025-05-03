@@ -16,7 +16,6 @@ const CadastroProfessor = () => {
                     <input type="text" id="nome" name="nome" className="form-control py-1" required />
                 </div>
 
-                {/* Email e Telefone lado a lado */}
                 <div className="row mb-2">
                     <div className="col-md-6">
                         <label htmlFor="email" className="form-label" style={{ fontSize: '16px' }}>Email</label>
