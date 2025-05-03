@@ -5,10 +5,13 @@ import Error from "../pages/Error";
 import Login from "../pages/administrator/Login";
 
 import Dashboard from "../pages/administrator/dashboard";
+
 import Agenda from "../pages/administrator/agenda";
+
 import User from "../pages/administrator/usuarios";
 import Cadastroaluno from "../pages/administrator/usuarios/cadastro_aluno";
 import Cadastroprofessor from "../pages/administrator/usuarios/cadastro_professor";
+import Perfil from "../pages/administrator/usuarios/perfil";
 
 import Financeiro from "../pages/administrator/financeiro";
 import Relatorios from "../pages/administrator/relatorio";
@@ -29,6 +32,7 @@ const Root = () => {
                 <Route path="/usuarios" element={<Navbar><User /></Navbar>} /> 
                 <Route path="/usuarios/cadastro-de-aluno" element={<Navbar><Cadastroaluno /></Navbar>} />
                 <Route path="/usuarios/cadastro-de-professor" element={<Navbar><Cadastroprofessor /></Navbar>} />
+                <Route path="/usuarios/perfil/:id" element={<Navbar><Perfil /></Navbar>} />
 
                 <Route path="/financeiro" element={<Navbar><Relatorios /></Navbar>} />
                 <Route path="/relatorios" element={<Navbar><Financeiro /></Navbar>} />
