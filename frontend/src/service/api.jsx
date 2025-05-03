@@ -24,4 +24,13 @@ export const listarUsuarios = () => {
   return api.get('/usuarios/listar/');
 }
 
+export const  perfilUsuario = (id) => {
+  return api.get(`/usuarios/perfil/${id}/`);
+}
+
+export const editarUsuario = (id, name, email, status, type, password) => {
+  return api.patch(`/usuarios/editar/${id}/`, { name, email, status, type, password });
+}
+
+
 

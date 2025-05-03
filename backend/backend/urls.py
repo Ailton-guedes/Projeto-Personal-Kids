@@ -20,6 +20,8 @@ from usuarios.views import criar_usuario
 from usuarios.views import login_usuario
 from usuarios.views import listar_usuario
 from usuarios.views import usuario_atual
+from usuarios.views import perfil_usuario
+from usuarios.views import editar_perfil_usuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,7 +29,8 @@ urlpatterns = [
     path('usuarios/login/', login_usuario),
     path('usuarios/listar/', listar_usuario),
     path('usuarios/me/', usuario_atual),
-
+    path('usuarios/perfil/<str:id>/', perfil_usuario),
+    path('usuarios/editar/<str:id>/', editar_perfil_usuario),
 ]
 
 

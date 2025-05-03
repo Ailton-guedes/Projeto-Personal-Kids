@@ -42,7 +42,7 @@ const User = () => {
   const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
 
   const goToProfile = (id) => {
-    navigate(`/perfil/${id}`);
+    navigate(`/usuarios/perfil/${id}`);
   };
 
   return (
