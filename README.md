@@ -61,6 +61,6 @@ Projeto-Personal-Kids é um sistema de gerenciamento de aulas de natação para 
 # 🛠️ Tecnologias Utilizadas
 Frontend: [Framework] (React)
 
-Backend: [Framework] (Django)
+Backend: [Linguagem/Framework] (Django)
 
-Banco de Dados: [NoSQL] (MongoDB)
+Banco de Dados: [Banco de dados utilizado] (MongoDB)
