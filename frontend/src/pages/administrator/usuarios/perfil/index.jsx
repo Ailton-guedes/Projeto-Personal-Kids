@@ -62,11 +62,28 @@ const Perfil = () => {
 
   return (
     <div className="container py-4">
-      <div className="bg-white rounded shadow-sm p-4 mb-4" style={{ backgroundColor: '#F8CDE2' }}>
-        <h2 className="fs-5 fw-bold m-0" style={{ color: '#A5D8FF' }}>Perfil de {user.name}</h2>
-        <br />
-        {isEditing ? (
-          <form onSubmit={handleSubmit}>
+      <div className="bg-white rounded shadow-sm p-4" style={{ backgroundColor: '#F8CDE2' }}>
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h2 className="fs-5 fw-bold mb-4">
+            Perfil de {user.name}
+          </h2>
+          <span
+            className={`px-3 py-1 rounded-3 fw-bold text-white ${formData.status === 'ativo' ? 'bg-success' : 'bg-danger'
+              }`}m
+          >
+            {formData.status === 'ativo' ? 'Ativado' : 'Desativado'}
+          </span>
+        </div>
+
+        <div className="d-flex gap-4 flex-wrap">
+          <div>
+            <div
+              className="rounded-circle bg-light border"
+              style={{ width: '120px', height: '120px' }}
+            />
+          </div>
+
+          <div className="flex-grow-1">
             <div className="mb-3">
               <label className="form-label">Nome</label>
               <input
@@ -75,16 +92,8 @@ const Perfil = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Email</label>
-              <input
-                type="email"
-                className="form-control rounded-3"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
+                readOnly={!isEditing}
+                disabled={!isEditing}
               />
             </div>
             <div className="mb-3">
@@ -94,6 +103,7 @@ const Perfil = () => {
                 name="type"
                 value={formData.type}
                 onChange={handleInputChange}
+                disabled={!isEditing}
               >
                 <option value="professor">Professor</option>
                 <option value="aluno">Aluno</option>
@@ -101,63 +111,71 @@ const Perfil = () => {
                 <option value="admin">Admin</option>
               </select>
             </div>
-            <div className="mb-3">
+          </div>
+        </div>
+
+        <div className="row mt-4">
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Email</label>
+            <input
+              type="email"
+              className="form-control rounded-3"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              readOnly={!isEditing}
+              disabled={!isEditing}
+            />
+          </div>
+          {isEditing && (<div className="col-md-6 mb-3">
+            <label className="form-label">Status</label>
+            <select
+              className="form-control rounded-3"
+              name="status"
+              value={formData.status}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            >
+              <option value="ativo">Ativado</option>
+              <option value="desativado">Desativado</option>
+            </select>
+          </div>
+          )}
+
+          {isEditing && (
+            <div className="col-md-6 mb-3">
               <label className="form-label">Senha</label>
               <input
-                type="email"
+                type="password"
                 className="form-control rounded-3"
-                name="email"
+                name="password"
                 value={formData.password}
+                placeholder="Digite a nova senha"
                 onChange={handleInputChange}
               />
             </div>
-            <div className="mb-3">
-              <label className="form-label">Status</label>
-              <select
-                className="form-control rounded-3"
-                name="status"
-                value={formData.status}
-                onChange={handleInputChange}
-              >
-                <option value="ativo">Ativado</option>
-                <option value="desativado">Desativado</option>
-              </select>
-            </div>
+          )}
+        </div>
 
-            <div className="d-flex justify-content-between">
-              <button
-                type="submit"
-                className="btn btn-primary rounded-3"
-              >
+        <div className="d-flex justify-content-start gap-2 mt-3">
+          {isEditing ? (
+            <>
+              <button type="button" className="btn btn-success" onClick={handleSubmit}>
                 Salvar
               </button>
-              <button
-                type="button"
-                className="btn btn-primary rounded-3"
-                onClick={() => setIsEditing(false)}
-              >
+              <button type="button" className="btn btn-secondary" onClick={() => setIsEditing(false)}>
                 Cancelar
               </button>
-            </div>
-          </form>
-        ) : (
-          <div className="mt-3">
-            <p><strong>Nome:</strong> {user.name}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Tipo:</strong> {user.type}</p>
-            <p><strong>Status:</strong> {user.status}</p>
-            <div className="d-flex justify-content-start">
-              <button
-                className="btn btn-primary rounded-3"
-                onClick={() => setIsEditing(true)}
-              >
-                Editar
-              </button>
-            </div>
-          </div>
-        )}
+            </>
+          ) : (
+            <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
+              Editar
+            </button>
+          )}
+        </div>
       </div>
     </div>
+
   );
 };
 
