@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '../../../service/UserContext';
+import {loginUsuario, sessaoUsuario } from '../../../service/api';
+
 
 const Login = () => {
   const { login } = useUser();
@@ -15,13 +17,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await axios.post(
-        'http://localhost:8000/usuarios/login/',
-        { email, password },
-        { withCredentials: true }
-      );
+      await loginUsuario(email, password);
 
-      const response = await axios.get('http://localhost:8000/usuarios/me', {
+
+      const response = await axios.get('http://localhost:8000/usuarios/sessao', {
         withCredentials: true,
       });
 
