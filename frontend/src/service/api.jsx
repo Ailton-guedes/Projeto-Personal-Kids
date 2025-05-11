@@ -30,3 +30,11 @@ export const  perfilUsuario = (id) => {
 export const editarUsuario = (id, name, email, status, type, password) => {
   return api.patch(`/usuarios/editar/${id}/`, { name, email, status, type, password });
 }
+
+export const criarResponsavel = (name, cpf, email, password) => {
+  return api.post('/usuarios/criar_responsavel/', { name, cpf, email, password });
+}
+
+export const criarProfessor = (name, cpf, email, password, type_class) => {
+  return api.post('/usuarios/criar_professor/', { name, cpf, email, password, type_class });
+}

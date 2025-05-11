@@ -19,7 +19,6 @@ const Login = () => {
     try {
       await loginUsuario(email, password);
 
-
       const response = await axios.get('http://localhost:8000/usuarios/sessao', {
         withCredentials: true,
       });
