@@ -8,3 +8,5 @@ from .controller.criar_professor import criar_professor
 from .controller.criar_aluno import criar_aluno
 from .controller.criar_agenda import criar_agenda
 from .controller.criar_responsavel import criar_responsavel
+from .controller.criar_plano import criar_plano
+from .controller.inscricao_plano import inscricao_plano
