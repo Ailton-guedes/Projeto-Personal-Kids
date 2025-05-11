@@ -39,7 +39,6 @@ class Agenda(Document):
     list_alunos = ListField(ReferenceField(Aluno), default=list)
     status = StringField(required=True, choices=['ativo', 'cancelada', 'cheia'], default = 'ativo')
 
-
 class Plano(Document):
     name = StringField(required=True, unique=True)  
     tipo = StringField(required=True, choices=['mensal', 'trimestral', 'semestral', 'anual'])
