@@ -7,17 +7,16 @@ export const api = axios.create({
 });
 
 
-
 export const criarUsuario = (name, email, password) => {
-  return api.post('/usuarios/criar/', { name, email, password });
+  return api.post('/usuarios/criar/', { name, cpf, email, password });
 };
 
-export const login = (email, password) => {
+export const loginUsuario = (email, password) => {
   return api.post('/usuarios/login/', { email, password });
 };
 
-export const usuarioAtual = () => {
-  return api.get('/usuarios/me/');
+export const sessaoUsuario = () => {
+  return api.get('/usuarios/sessao/');
 };
 
 export const listarUsuarios = () => {
@@ -31,6 +30,3 @@ export const  perfilUsuario = (id) => {
 export const editarUsuario = (id, name, email, status, type, password) => {
   return api.patch(`/usuarios/editar/${id}/`, { name, email, status, type, password });
 }
-
-
-
