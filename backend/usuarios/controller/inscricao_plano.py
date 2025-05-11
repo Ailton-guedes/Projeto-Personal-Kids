@@ -1,8 +1,9 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from datetime import timedelta, date
+from datetime import date
+from dateutil.relativedelta import relativedelta
 import json
-from usuarios.models import Aluno, Responsavel, Plano, InscricaoMensalidade
+from usuarios.models import Aluno, Responsavel, Plano, InscricaoPlano
 
 @csrf_exempt
 def inscricao_plano(request):
@@ -17,9 +18,9 @@ def inscricao_plano(request):
             return JsonResponse({'error': 'Aluno, responsável ou plano não encontrado'}, status=404)
 
         data_inicio = date.today()
-        data_fim = date(data_inicio.year, data_inicio.month, 1) + timedelta(days=plano.duracao_meses * 30)
+        data_fim = data_inicio + relativedelta(months=plano.duracao_meses)
 
-        inscricao = InscricaoMensalidade(
+        inscricao = InscricaoPlano(
             id_aluno=aluno,
             id_responsavel=responsavel,
             plano=plano,

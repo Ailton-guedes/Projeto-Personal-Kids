@@ -22,7 +22,7 @@ class Responsavel(Usuario):
 class Aluno(Usuario):
     id_responsavel = ReferenceField(Responsavel)
     id_agendas = ListField(ReferenceField('Agenda'), default=list)
-    id_mensalidade = ReferenceField('Mensalidade')
+    id_plano = ReferenceField('Plano')
 
 class Professor(Usuario):
     type_class = ListField(StringField(choices=['natacao', 'artistica', 'funcional']), default=list)
@@ -48,7 +48,7 @@ class Plano(Document):
     dia_vencimento = IntField(required=True, min_value=1, max_value=31)
     descricao = StringField() 
 
-class InscricaoMensalidade(Document):
+class InscricaoPlano(Document):
     id_aluno = ReferenceField(Aluno, required=True)
     id_responsavel = ReferenceField(Responsavel, required=True)
     plano = ReferenceField('Plano', required=True)
