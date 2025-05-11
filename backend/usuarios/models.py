@@ -55,4 +55,3 @@ class InscricaoPlano(Document):
     data_inicio = DateField(required=True, default=date.today)
     data_fim = DateField(required=True)
     status_pagamento = StringField(required=True, choices=['pago', 'pendente', 'cancelado'], default='pendente')
-    
