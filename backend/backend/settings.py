@@ -134,7 +134,6 @@ connect(
     host='mongodb+srv://tchezery:123@cluster0.gu1fw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 )
 
-
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
