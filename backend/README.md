@@ -3,8 +3,6 @@
 Passos para rodar o Backend
 
 0 - Acesse a pasta do backend
-
-Primeiro, navegue até a pasta do backend:
 ```
 cd backend/
 ```
