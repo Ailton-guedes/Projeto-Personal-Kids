@@ -20,6 +20,7 @@ def criar_mensalidade(request):
         mensalidade = Mensalidade(
             id_aluno=aluno,
             id_responsavel=responsavel,
+            name=data['name'],
             planos=data['planos'],
             valor=data['valor'],
             vencimento=data['vencimento'],

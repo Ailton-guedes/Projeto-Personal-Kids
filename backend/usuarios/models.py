@@ -21,7 +21,7 @@ class Responsavel(Usuario):
 class Aluno(Usuario):
     id_responsavel = ReferenceField(Responsavel)
     id_agendas = ListField(ReferenceField('Agenda'), default=list)
-
+    id_mensalidade = ReferenceField('Mensalidade')
 
 class Professor(Usuario):
     type_class = ListField(StringField(choices=['natacao', 'artistica', 'funcional']), default=list)
@@ -42,6 +42,7 @@ class Agenda(Document):
 class Mensalidade(Document):
     id_aluno = ReferenceField(Aluno)
     id_responsavel = ReferenceField(Responsavel)
+    name = StringField(required=True)
     planos = StringField(required=True, choices=['mensal', 'trimestral', 'semestral', 'anual'])
     valor = DecimalField(required=True, precision=2)
     vencimento = DateField(required=True)
