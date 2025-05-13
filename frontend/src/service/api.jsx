@@ -38,3 +38,7 @@ export const criarResponsavel = (name, cpf, email, password) => {
 export const criarProfessor = (name, cpf, email, password, type_class) => {
   return api.post('/usuarios/criar_professor/', { name, cpf, email, password, type_class });
 }
+
+export const criarAluno = (nome, cpf, email, type, password, id_responsavel) => {
+  return api.post('/usuario/criar_aluno/', {nome, cpf, email, type, password,id_responsavel });
+}
