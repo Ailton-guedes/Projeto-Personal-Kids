@@ -31,14 +31,14 @@ export const editarUsuario = (id, name, email, status, type, password) => {
   return api.patch(`/usuarios/editar/${id}/`, { name, email, status, type, password });
 }
 
-export const criarResponsavel = (name, cpf, email, password) => {
-  return api.post('/usuarios/criar_responsavel/', { name, cpf, email, password });
+export const criarResponsavel = (data) => {
+  return api.post('/usuarios/criar/responsavel/', data);
 }
 
-export const criarProfessor = (name, cpf, email, password, type_class) => {
-  return api.post('/usuarios/criar_professor/', { name, cpf, email, password, type_class });
+export const criarProfessor = (data) => {
+  return api.post('/usuarios/criar/professor/', data);
 }
 
-export const criarAluno = (nome, cpf, email, type, password, id_responsavel) => {
-  return api.post('/usuario/criar_aluno/', {nome, cpf, email, type, password,id_responsavel });
+export const criarAluno = (data) => {
+  return api.post('/usuario/criar/aluno/', data);
 }
