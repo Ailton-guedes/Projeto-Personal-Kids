@@ -3,6 +3,7 @@ import Navbar from "../fixed/Navbar";
 import Error from "../pages/Error";
 
 import Login from "../pages/administrator/Login";
+import RecuperarSenha from "../pages/administrator/recuperarSenha/indesx";
 
 import Dashboard from "../pages/administrator/dashboard";
 
@@ -26,6 +27,8 @@ const Root = () => {
                 <Route path="/" element={<Navigate to="/login" replace />} />
             
                 <Route path="/login" element={<Login />} />
+                <Route path="/recuperar-senha" element={<RecuperarSenha />} />
+
 
                 <Route path="/dashboard" element={<Navbar><Dashboard /></Navbar>} />
 
