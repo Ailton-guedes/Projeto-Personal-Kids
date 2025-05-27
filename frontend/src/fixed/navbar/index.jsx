@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from '../../service/UserContext'; 
 

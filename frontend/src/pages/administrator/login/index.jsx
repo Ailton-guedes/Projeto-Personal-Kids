@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '../../../service/UserContext';
-import {loginUsuario, sessaoUsuario } from '../../../service/api';
+import { loginUsuario, sessaoUsuario } from '../../../service/api';
 
 
 const Login = () => {
@@ -13,24 +13,44 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      await loginUsuario(email, password);
+  try {
+    setErrorMsg('');
+    console.log('Enviando loginUsuario...');
+    await loginUsuario(email, password);
+    console.log('loginUsuario ok.');
 
-      const response = await axios.get('http://localhost:8000/usuarios/sessao', {
-        withCredentials: true,
-      });
+    console.log('Buscando sessaoUsuario...');
+    const response = await sessaoUsuario();
+    console.log('sessaoUsuario ok:', response.data);
 
-      login(response.data);
+    login(response.data);
+    navigate('/dashboard');
+  } catch (error) {
+  console.error('Erro:', error);
 
-      navigate('/dashboard');
-    } catch (error) {
-      console.error(error);
-      setErrorMsg('Email ou senha inválidos');
+  if (error.response) {
+    console.error('Resposta de erro da API completa:', error.response);
+    if (error.response.data) {
+      console.error('Dados da resposta:', error.response.data);
+      setErrorMsg(JSON.stringify(error.response.data));
+    } else {
+      setErrorMsg('Erro desconhecido da API sem dados.');
     }
-  };
+  } else if (error.request) {
+    console.error('Requisição feita mas sem resposta:', error.request);
+    setErrorMsg('Servidor não respondeu. Tente novamente mais tarde.');
+  } else {
+    console.error('Erro ao configurar a requisição:', error.message);
+    setErrorMsg('Erro ao enviar a requisição.');
+  }
+}
+
+};
+
+
 
   return (
     <div
