@@ -3,7 +3,9 @@ import Navbar from "../fixed/Navbar";
 import Error from "../pages/Error";
 
 import Login from "../pages/administrator/Login";
-import RecuperarSenha from "../pages/administrator/recuperarSenha/indesx";
+import RecuperarSenha from "../pages/administrator/login/recuperar_senha";
+import CadastroAdmin from "../pages/administrator/login/cadastro_admin";
+
 
 import Dashboard from "../pages/administrator/dashboard";
 
@@ -21,6 +23,7 @@ import Relatorios from "../pages/administrator/relatorio";
 
 
 const Root = () => {
+
     return (
         <Router>
             <Routes>
@@ -28,6 +31,7 @@ const Root = () => {
             
                 <Route path="/login" element={<Login />} />
                 <Route path="/recuperar-senha" element={<RecuperarSenha />} />
+                <Route path="/cadastro-admin" element={<CadastroAdmin />} />
 
 
                 <Route path="/dashboard" element={<Navbar><Dashboard /></Navbar>} />
