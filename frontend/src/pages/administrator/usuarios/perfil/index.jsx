@@ -60,6 +60,11 @@ const Perfil = () => {
     return <div>{error}</div>;
   }
 
+
+  const idToNextPage = () => {
+    navigate('/usuarios/cadastro-de-aluno', { state: { id } });
+  }
+
   return (
     <div className="container py-4">
       <div className="bg-white rounded shadow-sm p-4" style={{ backgroundColor: '#F8CDE2' }}>
@@ -69,7 +74,7 @@ const Perfil = () => {
           </h2>
           <span
             className={`px-3 py-1 rounded-3 fw-bold text-white ${formData.status === 'ativo' ? 'bg-success' : 'bg-danger'
-              }`}m
+              }`} m
           >
             {formData.status === 'ativo' ? 'Ativado' : 'Desativado'}
           </span>
@@ -158,6 +163,7 @@ const Perfil = () => {
         </div>
 
         <div className="d-flex justify-content-start gap-2 mt-3">
+
           {isEditing ? (
             <>
               <button type="button" className="btn btn-success" onClick={handleSubmit}>
@@ -170,6 +176,15 @@ const Perfil = () => {
           ) : (
             <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
               Editar
+            </button>
+          )}
+
+          {formData.type === "responsavel" && (
+            <button
+              className="btn btn-primary"
+              onClick={idToNextPage}
+            >
+             Cadastrar Aluno
             </button>
           )}
         </div>
