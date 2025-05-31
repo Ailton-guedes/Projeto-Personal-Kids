@@ -13,42 +13,48 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    setErrorMsg('');
-    console.log('Enviando loginUsuario...');
-    await loginUsuario(email, password);
-    console.log('loginUsuario ok.');
+    try {
+      setErrorMsg('');
+      console.log('Enviando loginUsuario...');
+      await loginUsuario(email, password);
+      console.log('loginUsuario ok.');
 
-    console.log('Buscando sessaoUsuario...');
-    const response = await sessaoUsuario();
-    console.log('sessaoUsuario ok:', response.data);
+      console.log('Buscando sessaoUsuario...');
+      const response = await sessaoUsuario();
+      console.log('sessaoUsuario ok:', response.data);
 
-    login(response.data);
-    navigate('/dashboard');
-  } catch (error) {
-  console.error('Erro:', error);
+      login(response.data);
 
-  if (error.response) {
-    console.error('Resposta de erro da API completa:', error.response);
-    if (error.response.data) {
-      console.error('Dados da resposta:', error.response.data);
-      setErrorMsg(JSON.stringify(error.response.data));
-    } else {
-      setErrorMsg('Erro desconhecido da API sem dados.');
+      if (response.data.type === "admin") {
+        navigate('/dashboard');
+      } else {
+        setErrorMsg('Acesso apenas para Admin.')
+      }
+
+    } catch (error) {
+      console.error('Erro:', error);
+
+      if (error.response) {
+        console.error('Resposta de erro da API completa:', error.response);
+        if (error.response.data) {
+          console.error('Dados da resposta:', error.response.data);
+          setErrorMsg(JSON.stringify(error.response.data));
+        } else {
+          setErrorMsg('Erro desconhecido da API sem dados.');
+        }
+      } else if (error.request) {
+        console.error('Requisição feita mas sem resposta:', error.request);
+        setErrorMsg('Servidor não respondeu. Tente novamente mais tarde.');
+      } else {
+        console.error('Erro ao configurar a requisição:', error.message);
+        setErrorMsg('Erro ao enviar a requisição.');
+      }
     }
-  } else if (error.request) {
-    console.error('Requisição feita mas sem resposta:', error.request);
-    setErrorMsg('Servidor não respondeu. Tente novamente mais tarde.');
-  } else {
-    console.error('Erro ao configurar a requisição:', error.message);
-    setErrorMsg('Erro ao enviar a requisição.');
-  }
-}
 
-};
+  };
 
 
 
@@ -74,7 +80,7 @@ const handleSubmit = async (e) => {
           }}
         >
           <h1 style={{ fontSize: '38px', fontWeight: 'bold', color: '#222' }}>
-            Login{' '}
+            Login
             <span
               style={{
                 color: '#ff5252',
@@ -94,11 +100,11 @@ const handleSubmit = async (e) => {
               </label>
               <input
                 type="email"
-                className="form-control"
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="form-control"
                 style={{
                   borderRadius: '8px',
                   padding: '12px',
@@ -140,14 +146,31 @@ const handleSubmit = async (e) => {
               <div style={{ color: 'red', marginTop: '10px' }}>{errorMsg}</div>
             )}
             <a
-              href="#"
+              href="/recuperar-senha"
               className="d-block text-end mt-3"
               style={{ color: '#0078ff', textDecoration: 'none' }}
             >
               Esqueci a senha
             </a>
           </form>
+          <br />
+          <a
+            href='/cadastro-admin'
+            type="submit"
+            className="btn w-100 fw-bold"
+            style={{
+              backgroundColor: '#7bd4f7',
+              borderRadius: '8px',
+              padding: '12px',
+              fontSize: '18px',
+            }}
+          >
+            Cadastrar Admin
+          </a>
+
+
         </div>
+
 
         <div className="col-md-6 d-none d-md-block position-relative">
           <img

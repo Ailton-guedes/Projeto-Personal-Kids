@@ -7,9 +7,8 @@ export const api = axios.create({
 });
 
 
-
-export const criarUsuario = (name, email, password) => {
-  return api.post('/usuarios/criar/', { name, cpf, email, password });
+export const criarUsuario = (data) => {
+  return api.post('/usuarios/criar/', data);
 };
 
 export const loginUsuario = (email, password) => {
