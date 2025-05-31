@@ -13,9 +13,10 @@ def criar_usuario(request):
             name=data['name'], 
             cpf=data['cpf'],
             email=data['email'], 
-            type=data['type'],
+            type='admin',
             password=make_password(data['password'])
         )
         usuario.save()
         return JsonResponse({'id': str(usuario.id), 'name': usuario.name})
+    
     return JsonResponse({'error': 'Método não permitido'}, status=405)
