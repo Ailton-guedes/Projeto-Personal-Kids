@@ -13,12 +13,6 @@ def criar_aluno(request):
         if not responsavel or responsavel.type != 'responsavel':
             return JsonResponse({'error': 'Responsável não encontrado ou não é do tipo correto'}, status=404)
 
-        plano = None
-        if 'id_mensalidade' in data and data['id_mensalidade']:
-            try:
-                plano = Plano.objects.get(id=data['id_mensalidade'])
-            except Plano.DoesNotExist:
-                return JsonResponse({'error': 'Mensalidade não encontrada'}, status=404)
 
         aluno = Aluno(
             name=data['name'],
@@ -26,19 +20,13 @@ def criar_aluno(request):
             email=data['email'],
             type='aluno',
             password=make_password(data['password']),
-            id_responsavel=responsavel,
-            id_mensalidade=plano
+            id_responsavel=responsavel
         )
         aluno.save()
 
         return JsonResponse({
             'id': str(aluno.id), 
             'name': aluno.name,
-            'mensalidade': {
-                'id': str(plano.id) if plano else None,
-                'name': plano.name if plano else None,
-                'planos': plano.planos if plano else None,
-            }
         })
 
     return JsonResponse({'error': 'Método não permitido'}, status=405)
