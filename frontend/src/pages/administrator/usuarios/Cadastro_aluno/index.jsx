@@ -1,15 +1,27 @@
 import { criarAluno } from '../../../../service/api';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const CadastroAluno = () => {
+    const location = useLocation();
+    const idUser = location.state?.id;
+
     const [formData, setFormData] = useState({
-        nome: '',
+        name: '',
         cpf: '',
         email: '',
-        type: '',
         password: '',
         id_responsavel: '',
     });
+
+    useEffect(() => {
+        if (idUser) {
+            setFormData((prev) => ({
+                ...prev,
+                id_responsavel: idUser,
+            }));
+        }
+    }, [idUser]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,11 +56,11 @@ const CadastroAluno = () => {
                 }}
             >
                 <div className="mb-2">
-                    <label htmlFor="nome" className="form-label">Nome</label>
+                    <label htmlFor="name" className="form-label">Nome</label>
                     <input
                         type="text"
-                        name="nome"
-                        value={formData.nome}
+                        name="name"
+                        value={formData.name}
                         onChange={handleChange}
                         className="form-control py-1"
                         required
@@ -80,18 +92,6 @@ const CadastroAluno = () => {
                 </div>
 
                 <div className="mb-2">
-                    <label htmlFor="type" className="form-label">Tipo de Usuário</label>
-                    <input
-                        type="text"
-                        name="type"
-                        value={formData.type}
-                        onChange={handleChange}
-                        className="form-control py-1"
-                        required
-                    />
-                </div>
-
-                <div className="mb-2">
                     <label htmlFor="password" className="form-label">Senha</label>
                     <input
                         type="password"
@@ -103,32 +103,15 @@ const CadastroAluno = () => {
                     />
                 </div>
 
-                <div className="mb-2">
-                    <label htmlFor="id_responsavel" className="form-label">ID do Responsável</label>
-                    <input
-                        type="text"
-                        name="id_responsavel"
-                        value={formData.id_responsavel}
-                        onChange={handleChange}
-                        className="form-control py-1"
-                        required
-                    />
-                </div>
-
                 <div className="text-center">
+                    
                     <button
                         type="submit"
-                        className="btn"
-                        style={{
-                            backgroundColor: 'rgb(9, 1, 166)',
-                            color: 'rgb(221, 214, 238)',
-                            padding: '8px 16px',
-                            borderRadius: '4px',
-                            fontSize: '16px',
-                            width: '50%',
-                        }}
+                        className="btn btn-primary"
+
+
                     >
-                        Cadastrar Aluno
+                        Cadastrar
                     </button>
                 </div>
             </form>

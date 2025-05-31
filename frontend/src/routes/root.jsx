@@ -4,7 +4,7 @@ import Error from "../pages/Error";
 
 import Login from "../pages/administrator/Login";
 import RecuperarSenha from "../pages/administrator/login/recuperar_senha";
-import CadastroAdmin from "../pages/administrator/login/cadastro_admin";
+import CadastroAdmin from "../pages/administrator/login/cadastro_responsavel";
 
 
 import Dashboard from "../pages/administrator/dashboard";

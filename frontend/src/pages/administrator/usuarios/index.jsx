@@ -50,12 +50,15 @@ const User = () => {
       <div className="bg-white border rounded shadow-sm p-4 mb-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
         <p className="m-0 fw-semibold">Tipos de cadastro:</p>
         <div className="d-flex gap-2">
-          <button className="btn btn-primary" onClick={() => navigate('/usuarios/cadastro-de-aluno')}>
-            Aluno
+          
+          <button className="btn btn-primary" onClick={() => navigate('/usuarios/cadastro-de-responsavel')}>
+            Responsavel
           </button>
+          
           <button className="btn btn-primary" onClick={() => navigate('/usuarios/cadastro-de-professor')}>
             Professor
           </button>
+
         </div>
       </div>
 

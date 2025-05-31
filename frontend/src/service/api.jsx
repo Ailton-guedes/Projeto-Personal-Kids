@@ -40,5 +40,5 @@ export const criarProfessor = (data) => {
 }
 
 export const criarAluno = (data) => {
-  return api.post('/usuario/criar/aluno/', data);
+  return api.post('/usuarios/criar/aluno/', data);
 }
