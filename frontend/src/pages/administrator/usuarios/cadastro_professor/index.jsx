@@ -1,7 +1,9 @@
 import { criarProfessor } from '../../../../service/api';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Cadastro_professor = () => {
+const Cadastro_professor = () => { 
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         cpf: '',
@@ -32,27 +34,35 @@ const Cadastro_professor = () => {
         try {
             const response = await criarProfessor(formData);
             console.log('Professor cadastrado', response.data);
+            navigate('/usuarios');
         } catch (error) {
             console.error('Erro ao cadastrar professor:', error);
         }
     };
 
 
-    const tiposDeAula = ['Natação', 'Hidroginástica', 'Pilates', 'Yoga'];
+    const tiposDeAula = ['Natação', 'Artes', 'Funcional', 'Psicomotricidade '];
 
     return (
         <div className="container">
-            <h1 className="text-center text-dark mt-2">Cadastro de Professor</h1>
+            <h1 className="text-center text-dark mt-2"></h1>
             <form
                 onSubmit={enviarDados}
-                className="p-3 rounded shadow-sm"
+                className="p-4 rounded shadow-sm"
                 style={{
-                    backgroundColor: '#f3b9e3',
-                    maxWidth: '800px',
+                    backgroundColor: '#ffd1dc',
+                    maxWidth: '600px',
                     margin: '10px auto',
                     fontFamily: 'Arial, Helvetica, sans-serif',
                 }}
             >
+
+                 <div className='text-center mb-4'>
+                    <h1 style={{ fontSize: '38px', fontWeight: 'bold', color: '#222' }}>
+                        Cadastro de Professor
+                    </h1>
+                </div>
+
                 <div className="mb-2">
                     <label htmlFor="name" className="form-label" style={{ fontSize: '16px' }}>Nome Completo</label>
                     <input type="text" onChange={handleChange} value={formData.name} name="name" className="form-control py-1" required />
@@ -75,9 +85,9 @@ const Cadastro_professor = () => {
 
                 <div className="mb-4">
                     <label className="form-label" style={{ fontSize: '16px' }}>Tipo de Aula</label>
-                    <div>
+                    <div className="d-flex flex-wrap gap-3">
                         {tiposDeAula.map((tipo) => (
-                            <div key={tipo} className="form-check">
+                            <div key={tipo} className="form-check ">
                                 <input
                                     type="checkbox"
                                     id={`tipo_${tipo}`}
@@ -107,12 +117,19 @@ const Cadastro_professor = () => {
                 </div>
 
                 <div className="text-center">
-                    <button
-                        type="submit"
-                        className="btn btn-primary"
-                    >
-                        Cadastrar
-                    </button>
+                    
+            <button
+              type="submit"
+              className="btn w-100 fw-bold"
+              style={{
+                backgroundColor: '#7bd4f7',
+                borderRadius: '8px',
+                padding: '12px',
+                fontSize: '18px',
+              }}
+            >
+              Cadastar
+            </button>
                 </div>
             </form>
         </div>
