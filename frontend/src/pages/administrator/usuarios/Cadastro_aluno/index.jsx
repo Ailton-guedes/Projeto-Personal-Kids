@@ -1,8 +1,9 @@
 import { criarAluno } from '../../../../service/api';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CadastroAluno = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const idUser = location.state?.id;
 
@@ -36,25 +37,33 @@ const CadastroAluno = () => {
         try {
             const response = await criarAluno(formData);
             console.log('Cadastro de aluno realizado com sucesso', response.data);
+
+            navigate('/usuarios', { state: { message: 'Aluno cadastrado com sucesso!' } });
         } catch (error) {
             console.error('Erro ao cadastrar aluno', error);
         }
     };
 
     return (
-        <div className="container">
-            <h1 className="text-center text-dark mt-2">Cadastro de Aluno</h1>
+        <div className="container mt-4">
             <form
                 onSubmit={enviarDados}
                 method="post"
-                className="p-3 rounded shadow-sm"
+                className="p-4 rounded shadow-sm mt-3"
                 style={{
-                    backgroundColor: '#f3b9e3',
-                    maxWidth: '800px',
+                    backgroundColor: '#ffd1dc',
+                    maxWidth: '600px',
                     margin: '10px auto',
                     fontFamily: 'Arial, Helvetica, sans-serif',
                 }}
             >
+                <div className='text-center mb-4'>
+                    <h1 style={{ fontSize: '38px', fontWeight: 'bold', color: '#222' }}>
+                        Cadastro de Aluno
+                    </h1>
+                </div>
+
+
                 <div className="mb-2">
                     <label htmlFor="name" className="form-label">Nome</label>
                     <input
@@ -104,12 +113,15 @@ const CadastroAluno = () => {
                 </div>
 
                 <div className="text-center">
-                    
                     <button
                         type="submit"
-                        className="btn btn-primary"
-
-
+                        className="btn w-100 fw-bold"
+                        style={{
+                            backgroundColor: '#7bd4f7',
+                            borderRadius: '8px',
+                            padding: '12px',
+                            fontSize: '18px',
+                        }}
                     >
                         Cadastrar
                     </button>
