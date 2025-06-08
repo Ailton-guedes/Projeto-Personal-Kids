@@ -33,7 +33,6 @@ const Root = () => {
                 <Route path="/recuperar-senha" element={<RecuperarSenha />} />
                 <Route path="/cadastro-admin" element={<CadastroAdmin />} />
 
-
                 <Route path="/dashboard" element={<Navbar><Dashboard /></Navbar>} />
 
                 <Route path="/agenda" element={<Navbar><Agenda /></Navbar>} /> 
@@ -44,8 +43,8 @@ const Root = () => {
                 <Route path="/usuarios/cadastro-de-aluno" element={<Navbar><CadastroAluno /></Navbar>} />
                 <Route path="/usuarios/perfil/:id" element={<Navbar><Perfil /></Navbar>} />
 
-                <Route path="/financeiro" element={<Navbar><Relatorios /></Navbar>} />
-                <Route path="/relatorios" element={<Navbar><Financeiro /></Navbar>} />
+                <Route path="/relatorios" element={<Navbar><Relatorios /></Navbar>} />
+                <Route path="/financeiro" element={<Navbar><Financeiro /></Navbar>} />
 
                 <Route path="*" element={<Error />} />
             </Routes>
