@@ -1,7 +1,9 @@
 import { criarResponsavel } from '../../../../service/api';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Cadastro_responsavel = () => {
+    const navigate = useNavigate();
     
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,6 +25,8 @@ const Cadastro_responsavel = () => {
         try {
             const response = await criarResponsavel(formData);
             console.log('Cadastro responsavel realizado', response.data)
+
+            navigate('/usuarios');
         } catch (error) {
             console.error('Erro ao cadastrar responsavel', error);
         }

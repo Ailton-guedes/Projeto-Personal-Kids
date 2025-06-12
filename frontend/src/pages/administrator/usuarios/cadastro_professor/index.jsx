@@ -2,7 +2,7 @@ import { criarProfessor } from '../../../../service/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Cadastro_professor = () => { 
+const Cadastro_professor = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
@@ -41,7 +41,14 @@ const Cadastro_professor = () => {
     };
 
 
-    const tiposDeAula = ['Natação', 'Artes', 'Funcional', 'Psicomotricidade '];
+    const tiposDeAula = [
+        { label: 'Natação', value: 'natacao' },
+        { label: 'Artes', value: 'artistica' },
+        { label: 'Funcional', value: 'funcional' },
+        { label: 'Psicomotricidade', value: 'psicomotricidade' },
+
+    ];
+
 
     return (
         <div className="container">
@@ -57,7 +64,7 @@ const Cadastro_professor = () => {
                 }}
             >
 
-                 <div className='text-center mb-4'>
+                <div className='text-center mb-4'>
                     <h1 style={{ fontSize: '38px', fontWeight: 'bold', color: '#222' }}>
                         Cadastro de Professor
                     </h1>
@@ -86,14 +93,14 @@ const Cadastro_professor = () => {
                 <div className="mb-4">
                     <label className="form-label" style={{ fontSize: '16px' }}>Tipo de Aula</label>
                     <div className="d-flex flex-wrap gap-3">
-                        {tiposDeAula.map((tipo) => (
-                            <div key={tipo} className="form-check ">
+                        {tiposDeAula.map(({ label, value }) => (
+                            <div key={value} className="form-check">
                                 <input
                                     type="checkbox"
-                                    id={`tipo_${tipo}`}
+                                    id={`tipo_${value}`}
                                     name="type_class"
-                                    value={tipo}
-                                    checked={formData.type_class.includes(tipo)}
+                                    value={value}
+                                    checked={formData.type_class.includes(value)}
                                     onChange={(e) => {
                                         const { checked, value } = e.target;
                                         setFormData((prev) => {
@@ -108,28 +115,29 @@ const Cadastro_professor = () => {
                                     }}
                                     className="form-check-input"
                                 />
-                                <label htmlFor={`tipo_${tipo}`} className="form-check-label">
-                                    {tipo}
+                                <label htmlFor={`tipo_${value}`} className="form-check-label">
+                                    {label}
                                 </label>
                             </div>
                         ))}
+
                     </div>
                 </div>
 
                 <div className="text-center">
-                    
-            <button
-              type="submit"
-              className="btn w-100 fw-bold"
-              style={{
-                backgroundColor: '#7bd4f7',
-                borderRadius: '8px',
-                padding: '12px',
-                fontSize: '18px',
-              }}
-            >
-              Cadastar
-            </button>
+
+                    <button
+                        type="submit"
+                        className="btn w-100 fw-bold"
+                        style={{
+                            backgroundColor: '#7bd4f7',
+                            borderRadius: '8px',
+                            padding: '12px',
+                            fontSize: '18px',
+                        }}
+                    >
+                        Cadastar
+                    </button>
                 </div>
             </form>
         </div>

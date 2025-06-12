@@ -25,7 +25,7 @@ class Aluno(Usuario):
     id_plano = ReferenceField('Plano')
 
 class Professor(Usuario):
-    type_class = ListField(StringField(choices=['natacao', 'artistica', 'funcional']), default=list)
+    type_class = ListField(StringField(choices=['natacao', 'artistica', 'funcional', 'psicomotricidade']), default=list)
     id_agendas = ListField(ReferenceField('Agenda'), default=list)
 
 

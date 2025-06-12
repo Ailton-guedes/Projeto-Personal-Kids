@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const RecuperarSenha = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [telefone, setTelefone] = useState(''); 
   const [mensagem, setMensagem] = useState('');
   const [erro, setErro] = useState('');
 
@@ -14,14 +14,14 @@ const RecuperarSenha = () => {
     setErro('');
 
     try {
-      // Substitua pela sua API real
-      await axios.post('/api/recuperar-senha', { email });
-      setMensagem('Um link de recuperação foi enviado para seu e-mail.');
+     
+      await axios.post('/api/enviar-codigo-sms', { telefone });
+      setMensagem('Um código de verificação foi enviado para seu telefone.');
     } catch (error) {
       if (error.response && error.response.data?.message) {
         setErro(error.response.data.message);
       } else {
-        setErro('Erro ao enviar a solicitação. Tente novamente.');
+        setErro('Erro ao enviar o código. Tente novamente.');
       }
     }
   };
@@ -48,20 +48,22 @@ const RecuperarSenha = () => {
           }}
         >
           <h1 style={{ fontSize: '32px', fontWeight: 'bold', color: '#222' }}>
-            Recuperar Senha
+            Recuperar Acesso
           </h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="email" className="form-label fw-bold text-dark">
-                E-mail cadastrado
+              
+              <label htmlFor="telefone" className="form-label fw-bold text-dark">
+                Número de telefone
               </label>
               <input
-                type="email"
+                type="tel"
                 className="form-control"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                id="telefone"
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
                 required
+                placeholder="(XX) XXXXX-XXXX"
                 style={{
                   borderRadius: '8px',
                   padding: '12px',
@@ -69,6 +71,7 @@ const RecuperarSenha = () => {
                 }}
               />
             </div>
+            
             <button
               type="submit"
               className="btn w-100 fw-bold"
@@ -79,7 +82,7 @@ const RecuperarSenha = () => {
                 fontSize: '18px',
               }}
             >
-              Enviar link de recuperação
+              Enviar código via SMS
             </button>
             {mensagem && (
               <div style={{ color: 'green', marginTop: '10px' }}>{mensagem}</div>
