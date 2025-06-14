@@ -11,6 +11,8 @@ import Dashboard from "../pages/administrator/dashboard";
 
 import Agenda from "../pages/administrator/agenda";
 import CriarAgenda from "../pages/administrator/CriarAgenda";
+import AgendaDia from "../pages/administrator/agenda/agendaDia";
+
 
 import User from "../pages/administrator/usuarios";
 import Cadastro_responsavel from "../pages/administrator/usuarios/cadastro_responsavel";
@@ -38,6 +40,8 @@ const Root = () => {
 
                 <Route path="/agenda" element={<Navbar><Agenda /></Navbar>} /> 
                 <Route path="/CriarAgenda" element={<Navbar><CriarAgenda/></Navbar>} />
+                <Route path="/agendaDia" element={<Navbar><AgendaDia/></Navbar>}/>
+    
 
                 <Route path="/usuarios" element={<Navbar><User /></Navbar>} /> 
                 <Route path="/usuarios/cadastro-de-responsavel" element={<Navbar><Cadastro_responsavel /></Navbar>} />
