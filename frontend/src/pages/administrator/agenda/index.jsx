@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Agenda = () => {
+  const navigate = useNavigate(); 
   const getWeekDates = (offset = 0) => {
     const today = new Date();
     const dayOfWeek = today.getDay();
@@ -45,7 +47,7 @@ const Agenda = () => {
         </div>
         <div className="col-md-6 text-md-end mt-2 mt-md-0">
           <button className="btn btn-light me-2">Semanal</button>
-          <button className="btn btn-primary">Agendar</button>
+           <button className="btn btn-primary"onClick={() => navigate('../CriarAgenda')}>Agendar</button>
         </div>
       </div>
 
