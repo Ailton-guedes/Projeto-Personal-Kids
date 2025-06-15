@@ -21,23 +21,11 @@ class Responsavel(Usuario):
 
 class Aluno(Usuario):
     id_responsavel = ReferenceField(Responsavel)
-    id_agendas = ListField(ReferenceField('Agenda'), default=list)
-    id_plano = ReferenceField('Plano')
 
 class Professor(Usuario):
     type_class = ListField(StringField(choices=['natacao', 'artistica', 'funcional', 'psicomotricidade']), default=list)
-    id_agendas = ListField(ReferenceField('Agenda'), default=list)
+    id_agendas_regular = ListField(ReferenceField('AgendaRegular'), default=list)
 
-
-class Agenda(Document):
-    id_professor = ReferenceField(Professor)
-    day_week = StringField(required=True, choices=[
-        'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'
-    ])
-    start_time = DateTimeField(required=True) 
-    end_time = DateTimeField(required=True)    
-    list_alunos = ListField(ReferenceField(Aluno), default=list)
-    status = StringField(required=True, choices=['ativo', 'cancelada', 'cheia'], default = 'ativo')
 
 class Plano(Document):
     name = StringField(required=True, unique=True)  
@@ -54,3 +42,55 @@ class InscricaoPlano(Document):
     data_inicio = DateField(required=True, default=date.today)
     data_fim = DateField(required=True)
     status_pagamento = StringField(required=True, choices=['pago', 'pendente', 'cancelado'], default='pendente')
+
+
+class AgendaRegular(Document):
+    id_professor = ReferenceField(Professor, required=True)
+    modalidade = StringField(required=True, choices=['natacao', 'artistica', 'funcional', 'psicomotricidade'])
+    day_week = StringField(required=True, choices=[
+        'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'
+    ])
+    start_time = DateTimeField(required=True)
+    end_time = DateTimeField(required=True)  
+    max_alunos = IntField(required=True, default=10)
+    status = StringField(required=True, choices=['ativa', 'cancelada', 'cheia'], default='ativa')
+    
+class OcorrenciaAula(Document):
+    agenda_regular = ReferenceField(AgendaRegular, required=True)
+    data_aula = DateField(required=True) 
+    id_professor = ReferenceField(Professor, required=True) 
+    modalidade = StringField(required=True, choices=['natacao', 'artistica', 'funcional', 'psicomotricidade'])
+    start_time = DateTimeField(required=True)
+    end_time = DateTimeField(required=True)
+    status_ocorrencia = StringField(required=True, choices=['agendada', 'realizada', 'cancelada'], default='agendada')
+
+class ParticipacaoAula(Document):
+    ocorrencia_aula = ReferenceField(OcorrenciaAula, required=True)
+    aluno = ReferenceField(Aluno, required=True)
+    presenca = StringField(required=True, choices=['presente', 'ausente', 'pendente'], default='pendente')
+    status_reposicao = StringField(required=True, choices=['elegivel', 'reposicao_marcada', 'reposicao_concluida', 'nao_repor', 'nao_elegivel'], default='nao_elegivel')
+    feedback = StringField()
+    
+class InscricaoAulaRegular(Document):
+    aluno = ReferenceField(Aluno, required=True)
+    agenda_regular = ReferenceField(AgendaRegular, required=True)
+    data_inscricao = DateField(required=True, default=date.today)
+    status_inscricao = StringField(required=True, choices=['ativa', 'inativa'], default='ativa')
+
+class AulaRepor(Document):
+    id_professor = ReferenceField(Professor, required=True)
+    modalidade = StringField(required=True, choices=['natacao', 'artistica', 'funcional', 'psicomotricidade'])
+    data_aula = DateField(required=True)
+    start_time = DateTimeField(required=True)
+    end_time = DateTimeField(required=True)
+    max_alunos = IntField(required=True, default=5)
+    alunos_inscritos = ListField(ReferenceField(Aluno), default=list) 
+    status = StringField(required=True, choices=['aberta', 'fechada', 'cancelada'], default='aberta')
+
+class ReposicaoSolicitada(Document):
+    aluno = ReferenceField(Aluno, required=True)
+    participacao_original = ReferenceField(ParticipacaoAula, required=True) 
+    data_solicitacao = DateField(required=True, default=date.today)
+    aula_reposicao_marcada = ReferenceField(AulaRepor) 
+    status_solicitacao = StringField(required=True, choices=['pendente', 'marcada', 'concluida', 'cancelada'], default='pendente')
+    data_reposicao_concluida = DateField() 

@@ -6,7 +6,7 @@ import json
 from usuarios.models import Aluno, Responsavel, Plano, InscricaoPlano
 
 @csrf_exempt
-def inscricao_plano(request):
+def inscrever_aluno_plano(request):
     if request.method == 'POST':
         data = json.loads(request.body)
 
