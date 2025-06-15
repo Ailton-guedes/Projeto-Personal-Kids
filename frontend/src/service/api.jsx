@@ -8,37 +8,37 @@ export const api = axios.create({
 
 
 export const criarUsuario = (data) => {
-  return api.post('/usuarios/criar/', data);
+  return api.post('/criar/', data);
 };
 
 export const loginUsuario = (email, password) => {
-  return api.post('/usuarios/login/', { email, password });
+  return api.post('/login/', { email, password });
 };
 
 export const sessaoUsuario = () => {
-  return api.get('/usuarios/sessao/');
+  return api.get('/sessao/');
 };
 
 export const listarUsuarios = () => {
-  return api.get('/usuarios/listar/');
+  return api.get('/listar/');
 }
 
 export const  perfilUsuario = (id) => {
-  return api.get(`/usuarios/perfil/${id}/`);
+  return api.get(`/perfil/${id}/`);
 }
 
 export const editarUsuario = (id, name, email, status, type, password) => {
-  return api.patch(`/usuarios/editar/${id}/`, { name, email, status, type, password });
+  return api.patch(`/editar/${id}/`, { name, email, status, type, password });
 }
 
 export const criarResponsavel = (data) => {
-  return api.post('/usuarios/criar/responsavel/', data);
+  return api.post('/criar/responsavel/', data);
 }
 
 export const criarProfessor = (data) => {
-  return api.post('/usuarios/criar/professor/', data);
+  return api.post('/criar/professor/', data);
 }
 
 export const criarAluno = (data) => {
-  return api.post('/usuarios/criar/aluno/', data);
+  return api.post('/criar/aluno/', data);
 }
