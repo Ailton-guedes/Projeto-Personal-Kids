@@ -2,7 +2,7 @@ import { criarAluno } from '../../../../service/api';
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const CadastroAluno = () => {
+const Cadastro_aluno = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const idUser = location.state?.id;
@@ -131,4 +131,4 @@ const CadastroAluno = () => {
     );
 };
 
-export default CadastroAluno;
+export default Cadastro_aluno;

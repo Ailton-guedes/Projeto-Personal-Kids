@@ -69,6 +69,21 @@ const Agenda = () => {
     proxima_semana: 'Aulas da próxima semana',
   };
 
+const formatDateForAPI = (dateString) => {
+  if (!dateString) {
+    console.error("String de data indefinida ou nula, não pode ser formatada.");
+    return ''; 
+  }
+  const [year, day, month] = dateString.split('/');
+  return `${year}-${month}-${day}`;
+};
+
+const goToDate = (dateStrFromCalendar) => {
+  const formattedDate = formatDateForAPI(dateStrFromCalendar);
+  navigate(`/agenda/dia/${formattedDate}`);
+};
+
+
   return (
     <div className="d-flex flex-column align-items-center p-4">
       <div className='d-flex' style={{ width: '80%' }}>
@@ -96,7 +111,7 @@ const Agenda = () => {
             Array.isArray(days) && (
               <div key={key} className="align-items-center">
                 <h6 className="fw-bold mb-3 mt-4" style={{ color: '#333' }}>{sectionLabels[key]}</h6>
-                <div className="row g-2 align-center  justify-content-lg-center">
+                <div className="row g-2 align-center justify-content-lg-center">
                   {days.slice(0, 6).length > 0 ? (
                     days.slice(0, 6).map((day, index) => (
                       <div
@@ -109,8 +124,10 @@ const Agenda = () => {
                           style={{
                             backgroundColor: getBgColor(day.date),
                             borderRadius: "10px",
-                            boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
+                            boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+                            cursor: 'pointer'
                           }}
+                          onClick={() => goToDate(day.date)} 
                         >
                           <div className="card-body text-center p-2 d-flex flex-column justify-content-between">
                             <div className="fw-bold mb-1" style={{ fontSize: "0.9em", color: "#555" }}>{day.date}</div>

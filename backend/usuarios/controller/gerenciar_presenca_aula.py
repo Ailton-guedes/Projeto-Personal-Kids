@@ -60,13 +60,16 @@ def gerenciar_presenca_aula(request, ocorrencia_aula_id=None):
                 results.append({'error': f'Participação com ID {participacao_id} não encontrada para esta aula.'})
                 continue
 
-            if nova_presenca in ['presente', 'ausente']:
+            if nova_presenca in ['presente', 'ausente', 'pendente']:
                 participacao.presenca = nova_presenca
                 if nova_presenca == 'ausente' and participacao.status_reposicao == 'nao_elegivel':
                     participacao.status_reposicao = 'elegivel'
                 elif nova_presenca == 'presente' and (participacao.status_reposicao == 'elegivel' or participacao.status_reposicao == 'reposicao_marcada'):
                     participacao.status_reposicao = 'nao_elegivel'
-                
+            
+            if novo_feedback == "":
+                participacao.feedback = None
+            elif novo_feedback is not None:
                 participacao.feedback = novo_feedback
 
             try:
@@ -85,7 +88,3 @@ def gerenciar_presenca_aula(request, ocorrencia_aula_id=None):
         return JsonResponse({'message': 'Atualização de presença e feedback concluída.', 'results': results}, status=200)
 
     return JsonResponse({'error': 'Método não permitido.'}, status=405)
-
-# Lembre-se de adicionar este endpoint ao seu urls.py:
-# from usuarios.controller.gerenciar_chamada_aula import gerenciar_chamada_aula
-# path('chamada/<str:ocorrencia_aula_id>/', gerenciar_chamada_aula, name='gerenciar_chamada_aula'),
