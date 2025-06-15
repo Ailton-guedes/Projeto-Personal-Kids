@@ -46,3 +46,11 @@ export const criarAluno = (data) => {
 export const listarCalendario = (dateString) => {
   return api.get('/listar/calendario/', { params: { date: dateString } });
 };
+
+export const listarAgenda = (dateString) => {
+  return api.get(`/listar/agenda/${dateString}/`);
+}
+
+export const gerenciarPresenca = (id_aula, updates) => {
+  return api.patch(`/gerenciar/presenca/${id_aula}/`, { updates });
+}

@@ -21,7 +21,7 @@ def listar_agenda_dia(request, date_str=None):
         ).order_by('start_time')
 
         if not ocorrencias_do_dia:
-            return JsonResponse({'message': f'Nenhuma aula encontrada para o dia {data_str}.', 'aulas': []}, status=200)
+            return JsonResponse({'date': target_date.strftime('%Y-%m-%d'), 'aulas': []}, status=200)
 
         aulas_detalhadas = []
         for ocorrencia in ocorrencias_do_dia:
@@ -39,26 +39,35 @@ def listar_agenda_dia(request, date_str=None):
                         aluno_obj = Aluno.objects.get(id=p.aluno.id)
                         aluno_nome = aluno_obj.name
                     except Aluno.DoesNotExist:
-                        pass
+                        aluno_nome = f"Aluno Removido ({p.aluno.id})" 
+                    except Exception:
+                        aluno_nome = "Erro ao carregar nome do aluno"
                 
                 alunos_na_aula.append({
-                    'id': str(p.aluno.id),
-                    'nome': aluno_nome,   
+                    'participacao_id': str(p.id),
+                    'id_aluno': str(p.aluno.id),       
+                    'nome': aluno_nome,
                     'presenca': p.presenca,
                     'status_reposicao': p.status_reposicao, 
                     'feedback': p.feedback if p.feedback else None 
                 })
             
             professor_nome = "Desconhecido"
+            professor_id = None
             if ocorrencia.id_professor:
                 try:
                     professor_obj = Professor.objects.get(id=ocorrencia.id_professor.id)
                     professor_nome = professor_obj.name
+                    professor_id = str(professor_obj.id)
                 except Professor.DoesNotExist:
-                    pass
+                    professor_nome = f"Professor Removido ({ocorrencia.id_professor.id})"
+                except Exception:
+                    professor_nome = "Erro ao carregar nome do professor"
+
 
             aulas_detalhadas.append({
                 'id_aula': str(ocorrencia.id),
+                'id_professor': professor_id,
                 'professor': professor_nome,
                 'modalidade': ocorrencia.modalidade,
                 'hora_inicio': ocorrencia.start_time.strftime('%H:%M'),
