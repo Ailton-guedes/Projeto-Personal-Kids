@@ -18,3 +18,4 @@ from .controller.inscrever_aluno_agenda import inscrever_aluno_agenda
 from .controller.gerenciar_presenca_aula import gerenciar_presenca_aula
 
 from .controller.listar_calendario import listar_calendario
+from .controller.listar_agenda_dia import listar_agenda_dia

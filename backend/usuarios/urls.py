@@ -20,7 +20,8 @@ from .views import (
     inscrever_aluno_agenda,
     gerenciar_presenca_aula,
     
-    listar_calendario
+    listar_calendario,
+    listar_agenda_dia
 )
 
 urlpatterns = [
@@ -43,5 +44,6 @@ urlpatterns = [
     path('inscrever/agenda/', inscrever_aluno_agenda),
     path('gerenciar/presenca/<str:ocorrencia_aula_id>/', gerenciar_presenca_aula),
     
-    path('listar/calendario', listar_calendario)   
+    path('listar/calendario', listar_calendario),
+    path('listar/agenda/<str:date_str>', listar_agenda_dia)   
 ]
