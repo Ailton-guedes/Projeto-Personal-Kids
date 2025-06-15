@@ -12,7 +12,7 @@ def create_immediate_participacoes(sender, document, **kwargs):
             print(f"Sinal post_save em InscricaoAulaRegular para {aluno.name}. Verificando aulas próximas...")
 
             hoje = date.today()
-            periodo_antecipacao_imediata = 2
+            periodo_antecipacao_imediata = 15
             data_limite_imediata = hoje + timedelta(days=periodo_antecipacao_imediata)
 
             ocorrencias_proximas = OcorrenciaAula.objects(
@@ -32,7 +32,7 @@ def create_immediate_participacoes(sender, document, **kwargs):
                     participacao = ParticipacaoAula(
                         ocorrencia_aula=ocorrencia,
                         aluno=aluno,
-                        presenca='ausente',
+                        presenca='pendente',
                         status_reposicao='nao_elegivel'
                     )
                     participacao.save()
