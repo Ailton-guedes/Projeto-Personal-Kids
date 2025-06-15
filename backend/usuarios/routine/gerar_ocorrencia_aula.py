@@ -10,7 +10,7 @@ def gerar_ocorrencia_aula():
     }
 
     hoje = date.today()
-    periodo_geracao = 15 # dias
+    periodo_geracao = 15
     data_limite = hoje + timedelta(days=periodo_geracao)
 
     agendas_regulares_ativas = AgendaRegular.objects(status='ativa')
@@ -67,16 +67,9 @@ def gerar_ocorrencia_aula():
                             participacao = ParticipacaoAula(
                                 ocorrencia_aula=ocorrencia_aula,
                                 aluno=inscricao.aluno,
-                                presenca='ausente',
+                                presenca='pendente',
                                 status_reposicao='nao_elegivel'
                             )
                             participacao.save()
 
     print(f"Geração de ocorrências de aula concluída em {datetime.now()}")
-
-# Para testar, você poderia chamar essa função diretamente em um shell Django
-# ou configurar um comando customizado para executá-la.
-# Exemplo de como você chamaria se fosse um comando Django:
-# python manage.py shell
-# from seu_app.controllers.gerar_ocorrencias_aula import gerar_ocorrencias_aula
-# gerar_ocorrencias_aula()

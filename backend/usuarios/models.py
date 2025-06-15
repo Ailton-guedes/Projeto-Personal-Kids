@@ -67,7 +67,7 @@ class OcorrenciaAula(Document):
 class ParticipacaoAula(Document):
     ocorrencia_aula = ReferenceField(OcorrenciaAula, required=True)
     aluno = ReferenceField(Aluno, required=True)
-    presenca = StringField(required=True, choices=['presente', 'ausente'], default='ausente')
+    presenca = StringField(required=True, choices=['presente', 'ausente', 'pendente'], default='pendente')
     status_reposicao = StringField(required=True, choices=['elegivel', 'reposicao_marcada', 'reposicao_concluida', 'nao_repor', 'nao_elegivel'], default='nao_elegivel')
     feedback = StringField()
     
