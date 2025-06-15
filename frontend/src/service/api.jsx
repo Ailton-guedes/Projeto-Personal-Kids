@@ -42,3 +42,7 @@ export const criarProfessor = (data) => {
 export const criarAluno = (data) => {
   return api.post('/criar/aluno/', data);
 }
+
+export const listarCalendario = (dateString) => {
+  return api.get('/listar/calendario/', { params: { date: dateString } });
+};
