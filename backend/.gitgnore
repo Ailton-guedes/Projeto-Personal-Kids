@@ -1,0 +1,28 @@
+# Ignorar ambientes virtuais
+venv/
+.venv/
+env/
+.env/
+
+# Ignorar arquivos Python gerados
+*.pyc
+__pycache__/
+*.egg-info/
+.Python
+build/
+dist/
+
+# Ignorar arquivos Django específicos
+db.sqlite3
+/media/
+/static_root/
+*.log
+
+# Ignorar arquivos de editor/IDE
+.vscode/ # VS Code settings
+.idea/ # IntelliJ / PyCharm settings
+*.sublime-project
+*.sublime-workspace
+
+# Ignorar arquivos de configuração de ambiente (senhas, chaves de API)
+.env
