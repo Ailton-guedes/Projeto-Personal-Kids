@@ -5,13 +5,13 @@ from usuarios.models import OcorrenciaAula, ParticipacaoAula, Professor, Aluno
 from datetime import datetime, date
 
 @csrf_exempt
-def listar_agenda_dia(request, data_str=None):
+def listar_agenda_dia(request, date_str=None):
     if request.method == 'GET':
-        if not data_str:
+        if not date_str:
             return JsonResponse({'error': 'A data é obrigatória na URL (formato YYYY-MM-DD).'}, status=400)
 
         try:
-            target_date = datetime.strptime(data_str, '%Y-%m-%d').date()
+            target_date = datetime.strptime(date_str, '%Y-%m-%d').date()
         except ValueError:
             return JsonResponse({'error': 'Formato de data inválido. Use YYYY-MM-DD.'}, status=400)
 
