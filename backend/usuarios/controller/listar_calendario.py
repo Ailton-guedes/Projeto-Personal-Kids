@@ -48,7 +48,7 @@ def listar_calendario(request):
             ocorrencia_aula = ocorrencias_map.get(str(p.ocorrencia_aula.id))
             if ocorrencia_aula:
                 data_str_full = ocorrencia_aula.data_aula.strftime('%Y-%m-%d')
-                data_str_display = ocorrencia_aula.data_aula.strftime('%d/%m')
+                data_str_display = ocorrencia_aula.data_aula.strftime('%Y/%d/%m')
                 
                 daily_summary[data_str_full]['alunos'] += 1
                 daily_summary[data_str_full]['date'] = data_str_display
@@ -59,7 +59,6 @@ def listar_calendario(request):
                     daily_summary[data_str_full]['ausentes'] += 1
 
         response_data = {
-            'titulo_painel': 'Painel Administrativo Geral de Aulas', 
             'semana_anterior': [],
             'semana_atual': [],
             'proxima_semana': []
@@ -72,7 +71,7 @@ def listar_calendario(request):
                 summary = daily_summary[data_str_full] 
                 
                 if not summary['date']:
-                    summary['date'] = current_date.strftime('%d/%m')
+                    summary['date'] = current_date.strftime('%d/%m/%Y')
 
                 target_list.append({
                     'date': summary['date'],

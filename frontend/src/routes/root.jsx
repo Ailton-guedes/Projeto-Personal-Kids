@@ -17,7 +17,7 @@ import AgendaDia from "../pages/administrator/agenda/agenda_dia";
 import User from "../pages/administrator/usuarios";
 import Cadastro_responsavel from "../pages/administrator/usuarios/cadastro_responsavel";
 import Cadastro_professor from "../pages/administrator/usuarios/cadastro_professor";
-import CadastroAluno from "../pages/administrator/usuarios/cadastro_aluno";
+import Cadastro_aluno from "../pages/administrator/usuarios/cadastro_aluno";
 import Perfil from "../pages/administrator/usuarios/perfil";
 
 
@@ -39,14 +39,14 @@ const Root = () => {
                 <Route path="/dashboard" element={<Navbar><Dashboard /></Navbar>} />
 
                 <Route path="/agenda" element={<Navbar><Agenda /></Navbar>} /> 
-                <Route path="/agenda-criar" element={<Navbar><CriarAgenda/></Navbar>} />
-                <Route path="/agenda-dia" element={<Navbar><AgendaDia/></Navbar>}/>
+                <Route path="/agenda/criar" element={<Navbar><CriarAgenda/></Navbar>} />
+                <Route path="/agenda/dia/:dateStr" element={<Navbar><AgendaDia/></Navbar>}/>
     
 
                 <Route path="/usuarios" element={<Navbar><User /></Navbar>} /> 
                 <Route path="/usuarios/cadastro-de-responsavel" element={<Navbar><Cadastro_responsavel /></Navbar>} />
                 <Route path="/usuarios/cadastro-de-professor" element={<Navbar><Cadastro_professor /></Navbar>} />
-                <Route path="/usuarios/cadastro-de-aluno" element={<Navbar><CadastroAluno /></Navbar>} />
+                <Route path="/usuarios/cadastro-de-aluno" element={<Navbar><Cadastro_aluno /></Navbar>} />
                 <Route path="/usuarios/perfil/:id" element={<Navbar><Perfil /></Navbar>} />
 
                 <Route path="/relatorios" element={<Navbar><Relatorios /></Navbar>} />
