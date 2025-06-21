@@ -90,7 +90,9 @@ const goToDate = (dateStrFromCalendar) => {
         <input type="text" className="form-control border-start-0" placeholder="Pesquisar" />
         <div className="col-md-6 text-md-end mt-2 mt-md-0">
           <button className="btn btn-light me-2">Semanal</button>
-          <button className="btn btn-primary" onClick={() => navigate('/agenda-criar')}>Agendar</button>
+          <button className="btn btn-primary" onClick={() => navigate('/agenda/criar')}>
+  Agendar
+</button>
         </div>
       </div>
 
