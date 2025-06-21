@@ -12,6 +12,7 @@ const Navbar = ({ children }) => {
     { name: 'Usuarios', link: '/usuarios' },
     { name: 'Relatorios', link: '/relatorios' },
     { name: 'Financeiro', link: '/financeiro' },
+    {name: 'Planos', link: '/planos'},
   ];
 
   return (
