@@ -7,34 +7,27 @@ const Cadastro_aluno = () => {
 
   const [formData, setFormData] = useState({
     name: '',
-    cpf: '',
+    responsavel: '',
     dataNascimento: '',
     plano: 'mensal',
     diasSemana: [],
-    horaInicio: '',
-    horaFim: '',
+    horariosSelecionados: {}, 
+    valorMensalidade: {}, 
   });
 
   const diasSemanaOpcoes = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-  const horariosDisponiveis = ['08:00', '09:00', '10:00', '14:00', '15:00'];
+
+  const horariosPorPeriodo = {
+    manhã: ['08:00', '09:00', '10:00', '11:00'],
+    tarde: ['13:00', '14:00', '15:00', '16:00', '17:00'],
+  };
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (['natacao', 'artes', 'funcional'].includes(name)) {
-      setFormData((prev) => ({
-        ...prev,
-        modalidades: {
-          ...prev.modalidades,
-          [name]: checked,
-        },
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleArrayChange = (e) => {
@@ -44,7 +37,37 @@ const Cadastro_aluno = () => {
       diasSemana: checked
         ? [...prev.diasSemana, value]
         : prev.diasSemana.filter((dia) => dia !== value),
+      horariosSelecionados: checked
+        ? { ...prev.horariosSelecionados, [value]: [] }
+        : Object.fromEntries(
+            Object.entries(prev.horariosSelecionados).filter(([dia]) => dia !== value)
+          ),
     }));
+  };
+
+  const toggleHorario = (dia, hora) => {
+    setFormData((prev) => {
+      const horariosDoDia = prev.horariosSelecionados[dia] || [];
+      const jaSelecionado = horariosDoDia.includes(hora);
+
+      let novosHorarios;
+      if (jaSelecionado) {
+        novosHorarios = horariosDoDia.filter((h) => h !== hora);
+      } else if (horariosDoDia.length < 2) {
+        novosHorarios = [...horariosDoDia, hora];
+      } else {
+        // máximo de 2 horários por dia
+        return prev;
+      }
+
+      return {
+        ...prev,
+        horariosSelecionados: {
+          ...prev.horariosSelecionados,
+          [dia]: novosHorarios,
+        },
+      };
+    });
   };
 
   const enviarDados = async (e) => {
@@ -76,7 +99,7 @@ const Cadastro_aluno = () => {
 
         {/* Nome e CPF */}
         <div className="mb-2">
-          <label className="form-label">Nome</label>
+          <label className="form-label">Nome Aluno</label>
           <input
             type="text"
             name="name"
@@ -87,11 +110,11 @@ const Cadastro_aluno = () => {
           />
         </div>
         <div className="mb-2">
-          <label className="form-label">CPF</label>
+          <label className="form-label">Responsavel</label>
           <input
             type="text"
-            name="cpf"
-            value={formData.cpf}
+            name="responsavel"
+            value={formData.responsavel}
             onChange={handleChange}
             className="form-control"
             required
@@ -119,13 +142,11 @@ const Cadastro_aluno = () => {
             onChange={handleChange}
             required
           >
-            <option value="mensal">Mensal</option>
-            <option value="trimestral">Trimestral</option>
-            <option value="semestral">Semestral</option>
+            <option value="mensal">Mensal 1 Mês</option>
+            <option value="trimestral">Trimestral 3 Meses</option>
+            <option value="semestral">Semestral 6 Meses</option>
           </select>
         </div>
-
-    
 
         {/* Dias da Semana */}
         <div className="mb-3">
@@ -141,47 +162,48 @@ const Cadastro_aluno = () => {
                   checked={formData.diasSemana.includes(dia)}
                   onChange={handleArrayChange}
                 />
-                <label className="form-check-label" htmlFor={`dia-${dia}`}>{dia}</label>
+                <label className="form-check-label" htmlFor={`dia-${dia}`}>
+                  {dia}
+                </label>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Horário da Aula */}
-        <div className="mb-3">
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <div className="flex-fill">
-              <label className="form-label">Hora Início</label>
-              <select
-                name="horaInicio"
-                className="form-select"
-                value={formData.horaInicio}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Escolha...</option>
-                {horariosDisponiveis.map((h) => (
-                  <option key={h} value={h}>{h}</option>
-                ))}
-              </select>
+        {/* Grade de horários por dia da semana */}
+        {formData.diasSemana.map((dia) => (
+          <div key={dia} className="mb-4">
+            <label className="form-label">{dia}</label>
+
+            <div><strong>Manhã</strong></div>
+            <div className="d-flex flex-wrap gap-2 mb-2">
+              {horariosPorPeriodo.manhã.map((hora) => (
+                <button
+                  key={`${dia}-${hora}`}
+                  type="button"
+                  className={`btn btn-sm ${formData.horariosSelecionados[dia]?.includes(hora) ? 'btn-primary' : 'btn-outline-primary'}`}
+                  onClick={() => toggleHorario(dia, hora)}
+                >
+                  {hora}
+                </button>
+              ))}
             </div>
-            <div className="flex-fill">
-              <label className="form-label">Hora Fim</label>
-              <select
-                name="horaFim"
-                className="form-select"
-                value={formData.horaFim}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Escolha...</option>
-                {horariosDisponiveis.map((h) => (
-                  <option key={h} value={h}>{h}</option>
-                ))}
-              </select>
+
+            <div><strong>Tarde</strong></div>
+            <div className="d-flex flex-wrap gap-2">
+              {horariosPorPeriodo.tarde.map((hora) => (
+                <button
+                  key={`${dia}-${hora}`}
+                  type="button"
+                  className={`btn btn-sm ${formData.horariosSelecionados[dia]?.includes(hora) ? 'btn-primary' : 'btn-outline-primary'}`}
+                  onClick={() => toggleHorario(dia, hora)}
+                >
+                  {hora}
+                </button>
+              ))}
             </div>
           </div>
-        </div>
+        ))}
 
         {/* Botão de envio */}
         <div className="text-center">
@@ -197,6 +219,13 @@ const Cadastro_aluno = () => {
           >
             Cadastrar
           </button>
+          
+                <div>
+              <p className="text-center mt-3 fw-bold">Valor da mensalidade:{' '}
+              <span className="text-success">R$ ---</span>
+             </p>
+                </div>
+
         </div>
       </form>
     </div>
