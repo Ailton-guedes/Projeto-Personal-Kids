@@ -9,6 +9,8 @@ import CadastroAdmin from "../pages/administrator/login/cadastro_responsavel";
 
 import Dashboard from "../pages/administrator/dashboard";
 
+import Planos from "../pages/administrator/plano";
+
 import Agenda from "../pages/administrator/agenda";
 import CriarAgenda from "../pages/administrator/agenda/criar_agenda";
 import AgendaDia from "../pages/administrator/agenda/agenda_dia";
@@ -37,6 +39,8 @@ const Root = () => {
                 <Route path="/cadastro-admin" element={<CadastroAdmin />} />
 
                 <Route path="/dashboard" element={<Navbar><Dashboard /></Navbar>} />
+
+                <Route path="/planos" element={<Navbar><Planos /></Navbar>} />
 
                 <Route path="/agenda" element={<Navbar><Agenda /></Navbar>} /> 
                 <Route path="/agenda/criar" element={<Navbar><CriarAgenda/></Navbar>} />
