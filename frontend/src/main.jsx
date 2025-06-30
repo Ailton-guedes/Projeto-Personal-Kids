@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './routes/root.jsx';
+import App from './root.jsx';
 import './index.css';
 import { UserProvider } from './service/UserContext.jsx'; 
 

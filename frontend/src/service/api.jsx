@@ -1,4 +1,3 @@
-//importa a biblioteca axios para fazer requisições HTTP
 import axios from 'axios';
 
 export const api = axios.create({
@@ -20,10 +19,10 @@ export const sessaoUsuario = () => {
 };
 
 export const listarUsuarios = () => {
-  return api.get('/listar/');
+  return api.get('/listar/usuarios/');
 }
 
-export const  perfilUsuario = (id) => {
+export const perfilUsuario = (id) => {
   return api.get(`/perfil/${id}/`);
 }
 
@@ -48,9 +47,37 @@ export const listarCalendario = (dateString) => {
 };
 
 export const listarAgenda = (dateString) => {
-  return api.get(`/listar/agenda/${dateString}/`);
+  return api.get(`/listar/agenda/dia/${dateString}/`);
 }
 
-export const gerenciarPresenca = (id_aula, updates) => {
-  return api.patch(`/gerenciar/presenca/${id_aula}/`, { updates });
+export const gerenciarPresenca = (id_aula, payload) => {
+  return api.patch(`/gerenciar/presenca/${id_aula}/`, payload);
+}
+
+export const criarAula = (data) => {
+  return api.post('/criar/agenda/', data);
+}
+
+export const listarProfessor = () => {
+  return api.get('/listar/professor/');
+}
+
+export const criarPlano = (data) => {
+  return api.post('/criar/plano/', data)
+}
+
+export const listarPlano = () => {
+  return api.get('/listar/plano/');
+}
+
+export const inscreverAgenda  = () => {
+  return api.post('/inscrever/agenda')
+}
+
+export const listarAgendaSemana = () => {
+  return api.get('/listar/agenda/semana/');
+}
+
+export const listarAlunos = () => {
+  return api.get('/listar/aluno/');
 }
