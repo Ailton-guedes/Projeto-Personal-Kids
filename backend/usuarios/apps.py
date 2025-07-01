@@ -6,5 +6,5 @@ class UsuariosConfig(AppConfig):
     name = 'usuarios'
 
     def ready(self):
-        from .routine import signals_participation 
+        from .routine import signals_participation
         from .routine import signals_ocorrencia
