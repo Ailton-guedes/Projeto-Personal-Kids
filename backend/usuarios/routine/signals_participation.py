@@ -1,4 +1,4 @@
-da  # usuarios/signals.py
+# usuarios/signals.py
 from mongoengine import signals
 from datetime import date, datetime, timedelta
 from usuarios.models import InscricaoAulaRegular, OcorrenciaAula, ParticipacaoAula, Aluno

@@ -10,6 +10,12 @@ from usuarios.models import Usuario
 def listar_usuario(request):
     if request.method == 'GET':
         usuarios = Usuario.objects.all()
-        usuarios_list = [{'id': str(usuario.id), 'name': usuario.name, 'cpf': usuario.cpf, 'email': usuario.email, 'type': usuario.type, 'status': usuario.status} for usuario in usuarios]
+        usuarios_list = [{
+            'id': str(usuario.id), 
+            'name': usuario.name, 
+            'cpf': usuario.cpf, 
+            'email': usuario.email, 
+            'type': usuario.type, 
+            'status': usuario.status} for usuario in usuarios]
         return JsonResponse(usuarios_list, safe=False)
     return JsonResponse({'error': 'Método não permitido'}, status=405)
