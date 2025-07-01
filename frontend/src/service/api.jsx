@@ -70,8 +70,8 @@ export const listarPlano = () => {
   return api.get('/listar/plano/');
 }
 
-export const inscreverAgenda  = () => {
-  return api.post('/inscrever/agenda')
+export const inscreverAgenda  = (data) => {
+  return api.post('/inscrever/agenda/', data);
 }
 
 export const listarAgendaSemana = () => {
