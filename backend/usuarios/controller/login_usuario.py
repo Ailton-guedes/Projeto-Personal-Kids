@@ -1,34 +1,34 @@
-
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.hashers import check_password
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from usuarios.serializers import CustomTokenObtainPairSerializer
 from usuarios.models import Usuario
-import json
+from usuarios.utils import generate_jwt_token 
 
+class login_usuario(APIView):
+    def post(self, request):
+        serializer = CustomTokenObtainPairSerializer(data=request.data)
+        if serializer.is_valid():
+            user = Usuario.objects.get(email=request.data['email'])
+            
+            refresh_token = serializer.validated_data['refresh']
+            access_token = serializer.validated_data['access']
+            user_data = serializer.validated_data['user'] 
 
+            response = Response({
+                'access': access_token, 
+                'user': user_data
+            }, status=status.HTTP_200_OK)
 
-
-
-@csrf_exempt
-def login_usuario(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        email = data.get('email')
-        password = data.get('password')
-
-        try:
-            usuario = Usuario.objects.get(email=email)
-
-            if usuario.status == 'destivado':
-                return JsonResponse({'success': False, 'message': 'Conta desativada. Entre em contato com o administrador.'}, status=403)
-
-            if check_password(password, usuario.password):
-                request.session['usuario_id'] = str(usuario.id)
-                return JsonResponse({'success': True, 'message': 'Login bem-sucedido!'})
-            else:
-                return JsonResponse({'success': False, 'message': 'Email ou senha incorretos.'}, status=401)
-
-        except Usuario.DoesNotExist:
-            return JsonResponse({'success': False, 'message': 'Email ou senha incorretos.'}, status=401)
-    
-    return JsonResponse({'error': 'Método não permitido'}, status=405)
+            response.set_cookie(
+                key='refresh_token',
+                value=refresh_token,
+                httponly=True,
+                secure=False,
+                samesite='Lax',
+                max_age=3600 * 24 * 7 
+            )
+            
+            return response
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
