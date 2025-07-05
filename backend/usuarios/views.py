@@ -1,5 +1,5 @@
 from .controller.login_usuario import login_usuario
-from .controller.sessao_usuario import sessao_usuario
+from .controller.me import UserProfileView
 
 from .controller.criar_usuario import criar_usuario
 from .controller.perfil_usuario import perfil_usuario
@@ -23,3 +23,5 @@ from .controller.listar_calendario import listar_calendario
 from .controller.listar_agenda_dia import listar_agenda_dia
 from .controller.listar_agenda_semana import listar_agenda_semana
 from .controller.listar_aluno import listar_aluno
+
+
