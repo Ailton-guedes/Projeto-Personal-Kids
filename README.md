@@ -42,7 +42,7 @@ Para configurar e rodar o Projeto-Personal-Kids em sua máquina, siga os passos 
 3.  **Ative o ambiente virtual:**
     * No Windows:
         ```bash
-        venv\Scripts\activate
+        source venv/Scripts/activate
         ```
     * No macOS/Linux:
         ```bash
