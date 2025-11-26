@@ -1,0 +1,5 @@
+node_modeles
+dist
+.env
+
+/src/generated/prisma

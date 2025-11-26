@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id        String   @id @default(uuid())
+  name      String
+  cpf_cnpj  String   @unique(map: "cpf_cnpj") @db.VarChar(14)
+  email     String?  @unique(map: "email") @db.VarChar(255)
+  telephone String?  @db.VarChar(20)
+  status    Boolean  @default(true)
+  
+  createAt  DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  responsibles responsible[]
+  addresses    address[]
+}
+
+model responsible {
+  id           String       @id @default(uuid())
+  relationship relationship
+
+  createAt     DateTime     @default(now())
+  updateAt     DateTime     @updatedAt
+
+  userId       String?
+  user         user?        @relation(fields: [userId], references: [id])
+}
+
+enum relationship {
+  FATHER
+  MOTHER
+  GRANDFATHER
+  GRANDMOTHER
+}
+
+model address {
+  id          String   @id @default(uuid())
+  street      String
+  number      String
+  complement  String?
+  city        String
+  state       String
+  postal_code String   @db.VarChar(20)
+  country     String   @default("Brazil")
+
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  userId      String?
+  user        user?    @relation(fields: [userId], references: [id])
+}

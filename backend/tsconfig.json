@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es2020",            /* Versão do JS gerado */
+    "module": "commonjs",          /* Sistema de módulos (padrão Node) */
+    "rootDir": "./src",            /* Onde estarão seus arquivos .ts */
+    "outDir": "./dist",            /* Onde ficarão os arquivos .js compilados */
+    "strict": true,                /* Ativa verificação rigorosa de tipos */
+    "esModuleInterop": true,       /* Permite importar módulos CommonJS facilmente */
+    "skipLibCheck": true
+  }
+}
