@@ -1,0 +1,63 @@
+services:
+  database:
+    image: postgres:15
+    container_name: Database
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  prisma:
+    image: node:20-alpine
+    container_name: Prisma
+    working_dir: /app
+    command: sh -c "npm install prisma @prisma/client && sleep 5 && npx prisma generate && npx prisma db push && npx prisma studio --port 5555 --browser none"
+    ports:
+      - "${PRISMA_PORT}:5555"
+    depends_on:
+      database:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@database:5432/${DB_NAME}?schema=public"
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: Backend
+    ports:
+      - "${BACK_PORT:-6011}:6011"
+    depends_on:
+      database:
+        condition: service_healthy
+      prisma:
+        condition: service_started
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@database:5432/${DB_NAME}?schema=public"
+      BACK_PORT: "${BACK_PORT:-6011}"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
+
+volumes:
+  postgres:

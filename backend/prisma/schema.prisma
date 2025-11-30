@@ -1,59 +1,155 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
-model user {
-  id        String   @id @default(uuid())
+enum Role {
+  STUDENT
+  TEACHER
+  GUARDIAN
+  ADMIN
+}
+
+enum BillingStatus {
+  PENDING
+  PAID
+  OVERDUE
+}
+
+model User {
+  id        String   @id @default(cuid())
   name      String
-  cpf_cnpj  String   @unique(map: "cpf_cnpj") @db.VarChar(14)
-  email     String?  @unique(map: "email") @db.VarChar(255)
-  telephone String?  @db.VarChar(20)
-  status    Boolean  @default(true)
-  
-  createAt  DateTime @default(now())
-  updateAt  DateTime @updatedAt
+  email     String   @unique
+  password  String
+  role      Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  responsibles responsible[]
-  addresses    address[]
+  // Relations
+  student   Student?
+  teacher   Teacher?
+  guardian  Guardian?
+  admin     Admin?
 }
 
-model responsible {
-  id           String       @id @default(uuid())
-  relationship relationship
+model Student {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guardianId String?
+  guardian   Guardian? @relation(fields: [guardianId], references: [id])
+  planId     String?
+  plan       Plan?    @relation(fields: [planId], references: [id])
 
-  createAt     DateTime     @default(now())
-  updateAt     DateTime     @updatedAt
+  enrollments Enrollment[]
+  billings    Billing[]
 
-  userId       String?
-  user         user?        @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-enum relationship {
-  FATHER
-  MOTHER
-  GRANDFATHER
-  GRANDMOTHER
+model Teacher {
+  id       String   @id @default(cuid())
+  userId   String   @unique
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  classes  Class[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model address {
-  id          String   @id @default(uuid())
-  street      String
-  number      String
-  complement  String?
-  city        String
-  state       String
-  postal_code String   @db.VarChar(20)
-  country     String   @default("Brazil")
+model Guardian {
+  id       String   @id @default(cuid())
+  userId   String   @unique
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  students Student[]
 
-  userId      String?
-  user        user?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Admin {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Plan {
+  id             String  @id @default(cuid())
+  name           String
+  description    String?
+  price          Decimal
+  durationMonths Int     @default(1)
+
+  students Student[]
+  billings Billing[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Class {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  teacherId   String
+  teacher     Teacher  @relation(fields: [teacherId], references: [id])
+
+  classDates  ClassDate[]
+  enrollments Enrollment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ClassDate {
+  id        String   @id @default(cuid())
+  classId   String
+  class     Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+  date      DateTime
+  startTime String   // e.g., "10:00"
+  endTime   String   // e.g., "11:00"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Enrollment {
+  id        String   @id @default(cuid())
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  classId   String
+  class     Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+
+  enrolledAt DateTime @default(now())
+
+  @@unique([studentId, classId])
+}
+
+model Billing {
+  id        String        @id @default(cuid())
+  studentId String
+  student   Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  planId    String
+  plan      Plan          @relation(fields: [planId], references: [id])
+  month     Int
+  year      Int
+  amount    Decimal
+  status    BillingStatus @default(PENDING)
+  dueDate   DateTime
+  paidAt    DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([studentId, month, year])
 }
